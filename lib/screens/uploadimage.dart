@@ -20,6 +20,9 @@ class _UploadImageState extends State<UploadImage> {
       body: Center(
         child: Column(
           children: [
+            const SizedBox(
+              height: 15,
+            ),
             MaterialButton(
               color: Colors.blue,
               child: const Text(
@@ -70,9 +73,11 @@ class _UploadImageState extends State<UploadImage> {
     if (returnedImage == null) {
       return;
     }
-    setState(() {
-      _selectedImage = File(returnedImage.path);
-    },);
+    setState(
+      () {
+        _selectedImage = File(returnedImage.path);
+      },
+    );
   }
 
   Future _getFromCamera() async {
