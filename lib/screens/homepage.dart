@@ -10,12 +10,63 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget _buildPopupDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: const Color.fromARGB(255, 238, 242, 130),
+      title: const Text('Help'),
+      content: const Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child:
+                Text("Post Complaint: To post a complaint of an lost child."),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Found child: To report if found an lost child."),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+                "List of Children found: To see the list of all lost children."),
+          )
+        ],
+      ),
+      actions: <Widget>[
+        OutlinedButton(
+          style: const ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(Color.fromARGB(255, 132, 25, 17))),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text(
+            'Close',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Find My Child'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        _buildPopupDialog(context));
+              },
+              icon: const Icon(Icons.help))
+        ],
       ),
       body: Center(
         child: Column(
@@ -24,9 +75,6 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                onLongPress: () {
-                  const AlertDialog();
-                },
                 style: ButtonStyle(
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
