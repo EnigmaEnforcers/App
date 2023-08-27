@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.child_finder">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Find Child"
+        android:label="Find My Child"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
