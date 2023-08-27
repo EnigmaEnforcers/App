@@ -14,38 +14,54 @@ class _UploadImageState extends State<UploadImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Upload Image")),
-        body: Center(
-          child: Column(
-            children: [
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Gallery",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    _getFromGallery();
-                  }),
-              MaterialButton(
-                  color: Colors.blue,
-                  child: const Text("Pick Image from Camera",
-                      style: TextStyle(
-                          color: Colors.white70, fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    _getFromCamera();
-                  }),
-              const SizedBox(
-                height: 20,
+      appBar: AppBar(
+        title: const Text("Upload Image"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            MaterialButton(
+              color: Colors.blue,
+              child: const Text(
+                "Pick Image from Gallery",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              _selectedImage != null
-                  ? SizedBox(
+              onPressed: () {
+                _getFromGallery();
+              },
+            ),
+            MaterialButton(
+              color: Colors.blue,
+              child: const Text(
+                "Pick Image from Camera",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                _getFromCamera();
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            _selectedImage != null
+                ? SizedBox(
                     height: 250,
                     width: 300,
-                    child: Image.file(_selectedImage!))
-                  : const Text("Please Select an Image")
-            ],
-          ),
-        ));
+                    child: Image.file(
+                      _selectedImage!,
+                    ),
+                  )
+                : const Text("Please Select an Image")
+          ],
+        ),
+      ),
+    );
   }
 
   Future _getFromGallery() async {
@@ -56,7 +72,7 @@ class _UploadImageState extends State<UploadImage> {
     }
     setState(() {
       _selectedImage = File(returnedImage.path);
-    });
+    },);
   }
 
   Future _getFromCamera() async {

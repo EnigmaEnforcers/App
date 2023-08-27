@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,14 +17,22 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         title: const Text('HomePage'),
       ),
-      body: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const PostComplain()),
-          );
-        },
-        child: const Text("Post Complain"),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PostComplaint()),
+                );
+              },
+              child: const Text("Post Complaint"),
+            ),
+          ],
+        ),
       ),
     );
   }
