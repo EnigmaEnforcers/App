@@ -1,4 +1,4 @@
-import 'package:child_finder/screens/postcomplain.dart';
+import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,17 +13,80 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
-        title: const Text('HomePage'),
+        centerTitle: true,
+        title: const Text('Find My Child'),
       ),
-      body: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const PostComplain()),
-          );
-        },
-        child: const Text("Post Complain"),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onLongPress: () {
+                  AlertDialog(
+                  );
+                },
+                style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)))),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PostComplain()),
+                  );
+                },
+                child: const Text(
+                  "Post Complaint",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)))),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PostComplain()),
+                  );
+                },
+                child:
+                    const Text("Found child", style: TextStyle(fontSize: 20)),
+              ),
+            ),
+            const Divider(
+              thickness: 1,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)))),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PostComplain()),
+                  );
+                },
+                child: const Text("List of Children found",
+                    style: TextStyle(fontSize: 20)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
