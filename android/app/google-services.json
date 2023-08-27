@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789233404659",
+    "project_id": "accenture-578fc",
+    "storage_bucket": "accenture-578fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789233404659:android:8edc02573f86af50fb0586",
+        "android_client_info": {
+          "package_name": "com.example.child_finder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789233404659-58fpsgi2vtm4euqigbe6nivjl24qvam2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI2q8JppI8fw1GgvYKFIDO-PXOisL8874"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789233404659-58fpsgi2vtm4euqigbe6nivjl24qvam2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
