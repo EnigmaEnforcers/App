@@ -24,8 +24,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onLongPress: () {
-                  AlertDialog(
-                  );
+                  const AlertDialog();
                 },
                 style: ButtonStyle(
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
