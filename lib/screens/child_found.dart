@@ -13,7 +13,7 @@ class _ChildFoundState extends State<ChildFound> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(
-      appBar: AppBar(title: const Text("Post a Complain")),
+      appBar: AppBar(title: const Text("Found Child")),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -41,7 +41,7 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: "Parent's Name",
+                      labelText: "Your Name",
                     ),
                   ),
                   SizedBox(
@@ -49,7 +49,7 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: "Contact",
+                      labelText: "Your Contact",
                     ),
                     keyboardType: TextInputType.number,
                   ),

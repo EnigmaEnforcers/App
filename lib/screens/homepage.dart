@@ -1,3 +1,4 @@
+import 'package:child_finder/screens/child_found.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +25,22 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onLongPress: () {
-                  AlertDialog(
-                  );
+                  const AlertDialog();
                 },
                 style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)))),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        5,
+                      ),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PostComplain()),
+                        builder: (context) => const PostComplaint()),
                   );
                 },
                 child: const Text(
@@ -52,13 +57,18 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)))),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        5,
+                      ),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const PostComplain()),
+                    MaterialPageRoute(builder: (context) => const ChildFound()),
                   );
                 },
                 child:
@@ -79,28 +89,12 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PostComplain()),
+                        builder: (context) => const PostComplaint()),
                   );
                 },
                 child: const Text("List of Children found",
                     style: TextStyle(fontSize: 20)),
               ),
-            ),
-          ],
-        ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PostComplaint()),
-                );
-              },
-              child: const Text("Post Complaint"),
             ),
           ],
         ),
