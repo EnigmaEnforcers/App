@@ -1,20 +1,19 @@
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:flutter/material.dart';
-// import 'package:child_finder/widgets/image_input.dart';
 
-class PostComplaint extends StatefulWidget {
-  const PostComplaint({super.key});
+class ChildFound extends StatefulWidget {
+  const ChildFound({super.key});
 
   @override
-  State<PostComplaint> createState() => _PostComplaintState();
+  State<ChildFound> createState() => _ChildFoundState();
 }
 
-class _PostComplaintState extends State<PostComplaint> {
-  final _formKey = GlobalKey<FormState>();
+class _ChildFoundState extends State<ChildFound> {
+   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
    return Scaffold(
-      appBar: AppBar(title: const Text("Post a Complain")),
+      appBar: AppBar(title: const Text("Found Child")),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -42,7 +41,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: "Parent's Name",
+                      labelText: "Your Name",
                     ),
                   ),
                   SizedBox(
@@ -50,7 +49,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextField(
                     decoration: InputDecoration(
-                       labelText: "Contact",
+                      labelText: "Your Contact",
                     ),
                     keyboardType: TextInputType.number,
                   ),
