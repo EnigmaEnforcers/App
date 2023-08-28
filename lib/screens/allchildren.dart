@@ -63,6 +63,72 @@ class _AllChildrenState extends State<AllChildren> {
     }
   }
 
+  Widget _buildPopupDialog(BuildContext context, index) {
+    return AlertDialog(
+      backgroundColor: lighttheme.colorScheme.secondary,
+      title: Text(
+        'Child Details :',
+        style: TextStyle(color: lighttheme.dialogBackgroundColor),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 200,
+              width: 200,
+              child: Image.network(_lostChildren[index].image),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Child name: ${_lostChildren[index].name}",
+              style: TextStyle(color: lighttheme.colorScheme.background),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Child age: ${_lostChildren[index].age}",
+              style: TextStyle(color: lighttheme.colorScheme.background),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Parent name: ${_lostChildren[index].parentName}",
+              style: TextStyle(color: lighttheme.colorScheme.background),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Description: ${_lostChildren[index].description}",
+              style: TextStyle(color: lighttheme.colorScheme.background),
+            ),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        OutlinedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(lighttheme.colorScheme.background)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,48 +149,41 @@ class _AllChildrenState extends State<AllChildren> {
             ),
             itemCount: _lostChildren.length,
             itemBuilder: (BuildContext ctx, index) {
-              return Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: lighttheme.colorScheme.secondary,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    _lostChildren[index].image,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          color: lighttheme.dialogBackgroundColor,
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialog(context, index));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: lighttheme.colorScheme.secondary,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      _lostChildren[index].image,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: lighttheme.dialogBackgroundColor,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
-                // Container(
-                //   decoration: BoxDecoration(
-                //       color: lighttheme.colorScheme.secondary,
-                //       borderRadius:
-                //           const BorderRadius.all(Radius.circular(8))),
-                //   margin: const EdgeInsets.all(5),
-                //   alignment: Alignment.center,
-                //   height: 25,
-                //   width: double.infinity,
-                //   child: Text(
-                //     _lostChildren[index].name,
-                //     textAlign: TextAlign.center,
-                //     style: const TextStyle(color: Colors.white),
-                //   ),
-                // ),
               );
             }),
       ),
