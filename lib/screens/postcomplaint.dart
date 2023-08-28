@@ -9,7 +9,10 @@ import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
 // import 'package:child_finder/widgets/image_input.dart';
 
-final uuid = Uuid();
+// TODO  ---> Error Handling
+// TODO  ---> LOADING THINGS
+
+final uuid = const Uuid();
 
 class PostComplaint extends StatefulWidget {
   const PostComplaint({super.key});

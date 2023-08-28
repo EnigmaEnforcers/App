@@ -3,6 +3,11 @@ import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+
+
+//TODO ----> SUBMIT BUTTON
+//TODO ----> LOADING
+
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key, required this.onPickedImage});
   final void Function(File pickedImage) onPickedImage;
