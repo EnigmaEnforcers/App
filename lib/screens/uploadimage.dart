@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadImage extends StatefulWidget {
-  const UploadImage({super.key});
+  const UploadImage({super.key, required this.onPickedImage});
+  final void Function(File pickedImage) onPickedImage;
 
   @override
   State<UploadImage> createState() => _UploadImageState();
@@ -89,5 +90,6 @@ class _UploadImageState extends State<UploadImage> {
     setState(() {
       _selectedImage = File(returnedImage.path);
     });
+    widget.onPickedImage(_selectedImage!);
   }
 }

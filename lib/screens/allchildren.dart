@@ -10,6 +10,6 @@ class AllChildren extends StatefulWidget {
 class _AllChildrenState extends State<AllChildren> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +11,11 @@ class ChildFound extends StatefulWidget {
 }
 
 class _ChildFoundState extends State<ChildFound> {
-   final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  File? _selectedImage;
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       appBar: AppBar(title: const Text("Found Child")),
       body: SingleChildScrollView(
         child: Column(
@@ -67,7 +70,11 @@ class _ChildFoundState extends State<ChildFound> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                  return const UploadImage();
+                  return UploadImage(
+                    onPickedImage: (img) {
+                      _selectedImage = img;
+                    },
+                  );
                 }));
               },
               child: const Text("Upload Image"),
