@@ -79,19 +79,26 @@ class _UploadImageState extends State<UploadImage> {
     if (returnedImage == null) {
       return;
     }
-    setState(
-      () {
-        _selectedImage = File(returnedImage.path);
-      },
-    );
+    _pickImage(returnedImage);
   }
 
   Future _getFromCamera() async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnedImage == null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('We are facing some issue.Try again later'),
+        ),
+      );
+
       return;
     }
+    _pickImage(returnedImage);
+  }
+
+  void _pickImage(XFile returnedImage) {
     setState(() {
       _selectedImage = File(returnedImage.path);
     });

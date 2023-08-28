@@ -40,7 +40,7 @@ class _PostComplaintState extends State<PostComplaint> {
           .child('${uuid.v1()}.jpg');
       await storageRef.putFile(_selectedImage!);
       final imgURL = await storageRef.getDownloadURL();
-      print(imgURL);
+      // print(imgURL);
       final url =
           Uri.https('accenture-578fc-default-rtdb.firebaseio.com', 'lost.json');
       final response = await http.post(
@@ -60,9 +60,9 @@ class _PostComplaintState extends State<PostComplaint> {
         ),
       );
 
-      print(response.body);
+      // print(response.body);
     } catch (error) {
-      print(error);
+      // print(error);
       if (!mounted) return;
       ScaffoldMessenger.of(context).clearSnackBars();
 
