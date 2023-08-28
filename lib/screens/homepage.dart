@@ -1,8 +1,10 @@
 import 'package:child_finder/screens/allchildren.dart';
 import 'package:child_finder/screens/child_found.dart';
+import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,106 +57,121 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lighttheme.colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: lighttheme.appBarTheme.backgroundColor,
-        centerTitle: true,
-        title: const Text('Find My Child'),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) =>
-                        _buildPopupDialog(context));
-              },
-              icon: const Icon(Icons.help))
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
-                  shape: MaterialStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        5,
-                      ),
-                    ),
-                  ),
-                ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: lighttheme.colorScheme.background,
+        appBar: AppBar(
+          backgroundColor: lighttheme.appBarTheme.backgroundColor,
+          centerTitle: true,
+          title: const Text('Find My Child'),
+          actions: [
+            IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PostComplaint()),
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialog(context));
+                },
+                icon: const Icon(Icons.help)),
+            IconButton(
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool('showHome', false);
+                  
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const OnboardScreen()),
                   );
                 },
-                child: const Text(
-                  "Post Complaint",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            ),
-            const Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
-                  shape: MaterialStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        5,
-                      ),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ChildFound()),
-                  );
-                },
-                child:
-                    const Text("Found child", style: TextStyle(fontSize: 20)),
-              ),
-            ),
-            const Divider(
-              thickness: 1,
-              color: Colors.black,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
+                icon: const Icon(Icons.logout))
+          ],
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(
                         lighttheme.colorScheme.primary),
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)))),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AllChildren()),
-                  );
-                },
-                child: const Text("List of Children found",
-                    style: TextStyle(fontSize: 20)),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          5,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PostComplaint()),
+                    );
+                  },
+                  child: const Text(
+                    "Post Complaint",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               ),
-            ),
-          ],
+              const Divider(
+                thickness: 1,
+                color: Colors.black,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                        lighttheme.colorScheme.primary),
+                    shape: MaterialStatePropertyAll(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          5,
+                        ),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChildFound()),
+                    );
+                  },
+                  child:
+                      const Text("Found child", style: TextStyle(fontSize: 20)),
+                ),
+              ),
+              const Divider(
+                thickness: 1,
+                color: Colors.black,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          lighttheme.colorScheme.primary),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)))),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AllChildren()),
+                    );
+                  },
+                  child: const Text("List of Children found",
+                      style: TextStyle(fontSize: 20)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
