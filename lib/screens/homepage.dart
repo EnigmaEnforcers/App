@@ -65,23 +65,24 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: lighttheme.appBarTheme.backgroundColor,
           centerTitle: true,
           title: const Text('Find My Child'),
+          leading: IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) =>
+                        _buildPopupDialog(context));
+              },
+              icon: const Icon(Icons.help)),
           actions: [
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          _buildPopupDialog(context));
-                },
-                icon: const Icon(Icons.help)),
             IconButton(
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool('showHome', false);
-                  
+
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const OnboardScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const OnboardScreen()),
                   );
                 },
                 icon: const Icon(Icons.logout))
@@ -166,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => const AllChildren()),
                     );
                   },
-                  child: const Text("List of Children found",
+                  child: const Text("List of Children lost",
                       style: TextStyle(fontSize: 20)),
                 ),
               ),

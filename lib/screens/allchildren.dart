@@ -1,12 +1,12 @@
 import 'dart:convert';
-
 import 'package:child_finder/model/lostChildern.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 //TODO ----> Handle NULL value
-//TODO ---> SNACKBARS 
+//TODO ---> SNACKBARS
 //TODO ---> LOADING SCREEN
 //TODO ---> UI
 class AllChildren extends StatefulWidget {
@@ -75,37 +75,56 @@ class _AllChildrenState extends State<AllChildren> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
-            padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
-              childAspectRatio: 1 / 1,
+              childAspectRatio: 1,
               crossAxisSpacing: 20,
-              mainAxisSpacing: 20,
+              mainAxisSpacing: 30,
             ),
             itemCount: _lostChildren.length,
             itemBuilder: (BuildContext ctx, index) {
               return Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                   color: lighttheme.colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(
-                    15,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    _lostChildren[index].image,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: lighttheme.dialogBackgroundColor,
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Image.network(
-                      _lostChildren[index].image,
-                      fit: BoxFit.cover,
-                      height: 50,
-                      width: 50,
-                    ),
-                    Text(
-                      _lostChildren[index].name,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //       color: lighttheme.colorScheme.secondary,
+                //       borderRadius:
+                //           const BorderRadius.all(Radius.circular(8))),
+                //   margin: const EdgeInsets.all(5),
+                //   alignment: Alignment.center,
+                //   height: 25,
+                //   width: double.infinity,
+                //   child: Text(
+                //     _lostChildren[index].name,
+                //     textAlign: TextAlign.center,
+                //     style: const TextStyle(color: Colors.white),
+                //   ),
+                // ),
               );
             }),
       ),
