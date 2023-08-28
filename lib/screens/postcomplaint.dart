@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:child_finder/screens/uploadimage.dart';
+import 'package:child_finder/themes/lighttheme.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -33,8 +34,10 @@ class _PostComplaintState extends State<PostComplaint> {
     _formKey.currentState!.save();
 
     try {
-      final storageRef =
-          FirebaseStorage.instance.ref().child('lost_user_image').child('${uuid.v1()}.jpg');
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('lost_user_image')
+          .child('${uuid.v1()}.jpg');
       await storageRef.putFile(_selectedImage!);
       final imgURL = await storageRef.getDownloadURL();
       print(imgURL);
@@ -76,7 +79,14 @@ class _PostComplaintState extends State<PostComplaint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Post a Complain")),
+      backgroundColor: lighttheme.colorScheme.background,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          "Post a Complain",
+        ),
+        backgroundColor: lighttheme.appBarTheme.backgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -87,6 +97,7 @@ class _PostComplaintState extends State<PostComplaint> {
                 children: [
                   TextFormField(
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Child's Name",
                     ),
                     validator: (value) {
@@ -104,6 +115,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextFormField(
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Child's age",
                     ),
                     keyboardType: TextInputType.number,
@@ -124,6 +136,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextFormField(
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Parent's Name",
                     ),
                     validator: (value) {
@@ -141,6 +154,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextFormField(
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Contact",
                     ),
                     keyboardType: TextInputType.number,
@@ -159,6 +173,7 @@ class _PostComplaintState extends State<PostComplaint> {
                   ),
                   TextFormField(
                     decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Description",
                     ),
                     onSaved: (v) {
@@ -168,19 +183,30 @@ class _PostComplaintState extends State<PostComplaint> {
                 ],
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                  return UploadImage(
-                    onPickedImage: (image) {
-                      _selectedImage = image;
-                    },
-                  );
-                }));
-              },
-              child: const Text("Upload Image"),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                    return UploadImage(
+                      onPickedImage: (image) {
+                        _selectedImage = image;
+                      },
+                    );
+                  }));
+                },
+                child: const Text("Upload Image"),
+              ),
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll(lighttheme.colorScheme.primary),
+              ),
               onPressed: _submitForm,
               child: const Text("Submit"),
             ),

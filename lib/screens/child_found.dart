@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:child_finder/screens/uploadimage.dart';
+import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 
 class ChildFound extends StatefulWidget {
@@ -16,7 +17,11 @@ class _ChildFoundState extends State<ChildFound> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Found Child")),
+      backgroundColor: lighttheme.colorScheme.background,
+      appBar: AppBar(
+        title: const Text("Found Child"),
+        backgroundColor: lighttheme.appBarTheme.backgroundColor,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -27,6 +32,7 @@ class _ChildFoundState extends State<ChildFound> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Child's Name",
                     ),
                   ),
@@ -35,6 +41,7 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Child's age",
                     ),
                     keyboardType: TextInputType.number,
@@ -44,6 +51,7 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Your Name",
                     ),
                   ),
@@ -52,6 +60,7 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Your Contact",
                     ),
                     keyboardType: TextInputType.number,
@@ -61,25 +70,37 @@ class _ChildFoundState extends State<ChildFound> {
                   ),
                   TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(12),
                       labelText: "Description",
                     ),
                   ),
                 ],
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                  return UploadImage(
-                    onPickedImage: (img) {
-                      _selectedImage = img;
-                    },
-                  );
-                }));
-              },
-              child: const Text("Upload Image"),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                    return UploadImage(
+                      onPickedImage: (img) {
+                        _selectedImage = img;
+                      },
+                    );
+                  }));
+                },
+                child: const Text("Upload Image"),
+              ),
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll(lighttheme.colorScheme.primary),
+              ),
               onPressed: () {},
               child: const Text("Submit"),
             ),

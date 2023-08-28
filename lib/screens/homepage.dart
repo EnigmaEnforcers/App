@@ -1,5 +1,7 @@
+import 'package:child_finder/screens/allchildren.dart';
 import 'package:child_finder/screens/child_found.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
+import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   Widget _buildPopupDialog(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color.fromARGB(255, 238, 242, 130),
+      backgroundColor: lighttheme.dialogBackgroundColor,
       title: const Text('Help'),
       content: const Column(
         mainAxisSize: MainAxisSize.min,
@@ -36,9 +38,9 @@ class _HomePageState extends State<HomePage> {
       ),
       actions: <Widget>[
         OutlinedButton(
-          style: const ButtonStyle(
+          style: ButtonStyle(
               backgroundColor:
-                  MaterialStatePropertyAll(Color.fromARGB(255, 132, 25, 17))),
+                  MaterialStatePropertyAll(lighttheme.colorScheme.secondary)),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -54,7 +56,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lighttheme.colorScheme.background,
       appBar: AppBar(
+        backgroundColor: lighttheme.appBarTheme.backgroundColor,
         centerTitle: true,
         title: const Text('Find My Child'),
         actions: [
@@ -76,6 +80,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -105,6 +111,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
                   shape: MaterialStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
@@ -131,13 +139,15 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(
+                        lighttheme.colorScheme.primary),
                     shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)))),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PostComplaint()),
+                        builder: (context) => const AllChildren()),
                   );
                 },
                 child: const Text("List of Children found",

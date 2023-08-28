@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,22 +16,27 @@ class _UploadImageState extends State<UploadImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lighttheme.colorScheme.background,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Upload Image"),
+        backgroundColor: lighttheme.appBarTheme.backgroundColor,
       ),
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
-              height: 15,
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0,25,0,0),
+              child: SizedBox(
+                height: 15,
+              ),
             ),
             MaterialButton(
-              color: Colors.blue,
+              color: lighttheme.colorScheme.primary,
               child: const Text(
                 "Pick Image from Gallery",
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               onPressed: () {
@@ -38,12 +44,11 @@ class _UploadImageState extends State<UploadImage> {
               },
             ),
             MaterialButton(
-              color: Colors.blue,
+              color: lighttheme.colorScheme.primary,
               child: const Text(
                 "Pick Image from Camera",
                 style: TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
               onPressed: () {
