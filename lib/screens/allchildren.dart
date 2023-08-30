@@ -3,12 +3,11 @@ import 'package:child_finder/model/lostChildern.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 //TODO ----> Handle NULL value
 //TODO ---> SNACKBARS
-//TODO ---> LOADING SCREEN
-//TODO ---> UI
+
+
 class AllChildren extends StatefulWidget {
   const AllChildren({super.key});
 
@@ -17,13 +16,15 @@ class AllChildren extends StatefulWidget {
 }
 
 class _AllChildrenState extends State<AllChildren> {
-  List<LostChildren> _lostChildren = [];
+  final List<LostChildren> _lostChildren = [];
 
   @override
   void initState() {
     super.initState();
     _loadChilds();
   }
+
+  var _isLoading = true;
 
   void _loadChilds() async {
     final url =
@@ -40,9 +41,8 @@ class _AllChildrenState extends State<AllChildren> {
 
       final Map<String, dynamic> childList = json.decode(response.body);
 
-      final List<LostChildren> loadedItem = [];
       for (final item in childList.entries) {
-        loadedItem.add(
+        _lostChildren.add(
           LostChildren(
             name: item.value['name'],
             age: item.value['age'],
@@ -55,7 +55,7 @@ class _AllChildrenState extends State<AllChildren> {
       }
 
       setState(() {
-        _lostChildren = loadedItem;
+        _isLoading = false;
       });
     } catch (e) {
       //TODO
@@ -106,6 +106,13 @@ class _AllChildrenState extends State<AllChildren> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
+              "Parent contact: ${_lostChildren[index].parentContact}",
+              style: TextStyle(color: lighttheme.colorScheme.background),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
               "Description: ${_lostChildren[index].description}",
               style: TextStyle(color: lighttheme.colorScheme.background),
             ),
@@ -140,48 +147,52 @@ class _AllChildrenState extends State<AllChildren> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 1,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 30,
-            ),
-            itemCount: _lostChildren.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          _buildPopupDialog(context, index));
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: lighttheme.colorScheme.secondary,
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      _lostChildren[index].image,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: lighttheme.dialogBackgroundColor,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+        child: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 30,
                 ),
-              );
-            }),
+                itemCount: _lostChildren.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              _buildPopupDialog(context, index));
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: lighttheme.colorScheme.secondary,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          _lostChildren[index].image,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                color: lighttheme.dialogBackgroundColor,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                }),
       ),
     );
   }
