@@ -3,8 +3,6 @@ import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
-
 //TODO ----> SUBMIT BUTTON
 //TODO ----> LOADING
 
@@ -24,23 +22,28 @@ class _UploadImageState extends State<UploadImage> {
       backgroundColor: lighttheme.colorScheme.background,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Upload Image"),
+        title: const Text(
+          "Upload Image",
+        ),
         backgroundColor: lighttheme.appBarTheme.backgroundColor,
       ),
       body: Center(
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.fromLTRB(0,25,0,0),
+              padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
               child: SizedBox(
                 height: 15,
               ),
             ),
             MaterialButton(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
               color: lighttheme.colorScheme.primary,
               child: const Text(
                 "Pick Image from Gallery",
                 style: TextStyle(
+                  fontSize: 18,
                   color: Colors.white,
                 ),
               ),
@@ -49,10 +52,13 @@ class _UploadImageState extends State<UploadImage> {
               },
             ),
             MaterialButton(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5),),),
               color: lighttheme.colorScheme.primary,
               child: const Text(
                 "Pick Image from Camera",
                 style: TextStyle(
+                  fontSize: 18,
                   color: Colors.white,
                 ),
               ),
@@ -65,13 +71,16 @@ class _UploadImageState extends State<UploadImage> {
             ),
             _selectedImage != null
                 ? SizedBox(
-                    height: 250,
+                    height: 450,
                     width: 300,
                     child: Image.file(
                       _selectedImage!,
                     ),
                   )
-                : const Text("Please Select an Image")
+                : const Text(
+                    "Please Select an Image",
+                    style: TextStyle(fontSize: 15),
+                  )
           ],
         ),
       ),

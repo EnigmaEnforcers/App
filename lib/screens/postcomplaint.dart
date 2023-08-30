@@ -81,6 +81,7 @@ class _PostComplaintState extends State<PostComplaint> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: lighttheme.colorScheme.background,
       appBar: AppBar(
@@ -98,96 +99,106 @@ class _PostComplaintState extends State<PostComplaint> {
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      labelText: "Child's Name",
+                  const SizedBox(height: 15,),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(12),
+                        labelText: "Child's Name",
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please ente a valid name';
+                        }
+                        return null;
+                      },
+                      onSaved: (v) {
+                        _childName = v!;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Please ente a valid name';
-                      }
-                      return null;
-                    },
-                    onSaved: (v) {
-                      _childName = v!;
-                    },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      labelText: "Child's age",
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(12),
+                        labelText: "Child's age",
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null ||
+                            value.trim().isEmpty ||
+                            (int.tryParse(value) ?? 0) == 0) {
+                          return 'Please ente a valid age';
+                        }
+                        return null;
+                      },
+                      onSaved: (v) {
+                        _childAge = v!;
+                      },
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null ||
-                          value.trim().isEmpty ||
-                          (int.tryParse(value) ?? 0) == 0) {
-                        return 'Please ente a valid age';
-                      }
-                      return null;
-                    },
-                    onSaved: (v) {
-                      _childAge = v!;
-                    },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      labelText: "Parent's Name",
+                  
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(12),
+                        labelText: "Parent's Name",
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please ente a valid name';
+                        }
+                        return null;
+                      },
+                      onSaved: (v) {
+                        _parentName = v!;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Please ente a valid name';
-                      }
-                      return null;
-                    },
-                    onSaved: (v) {
-                      _parentName = v!;
-                    },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      labelText: "Contact",
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(12),
+                        labelText: "Contact",
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.trim().length != 10) {
+                          return 'Please ente a valid number';
+                        }
+                        return null;
+                      },
+                      onSaved: (v) {
+                        _contact = v!;
+                      },
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.trim().length != 10) {
-                        return 'Please ente a valid number';
-                      }
-                      return null;
-                    },
-                    onSaved: (v) {
-                      _contact = v!;
-                    },
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      contentPadding: EdgeInsets.all(12),
-                      labelText: "Description",
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.all(12),
+                        labelText: "Description",
+                      ),
+                      onSaved: (v) {
+                        _description = v!;
+                      },
                     ),
-                    onSaved: (v) {
-                      _description = v!;
-                    },
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.fromLTRB(0,18,0,10),
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor:

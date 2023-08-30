@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:child_finder/screens/homepage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
@@ -75,19 +77,19 @@ class _OnboardScreenState extends State<OnboardScreen> {
           children: [
             buildPage(
               color: lighttheme.colorScheme.primary,
-              urlImage: 'assets/icon.png',
+              urlImage: 'assets/onboard1.png',
               title: 'Post Complain',
               subtitle: 'To post a complaint of an lost child.',
             ),
             buildPage(
               color: lighttheme.colorScheme.primary,
-              urlImage: 'assets/icon.png',
+              urlImage: 'assets/onboard2.png',
               title: 'Found child',
               subtitle: 'To report if found an lost child.',
             ),
             buildPage(
               color: lighttheme.colorScheme.primary,
-              urlImage: 'assets/icon.png',
+              urlImage: 'assets/onboard3.png',
               title: 'All lost children',
               subtitle: 'List of all lost children till date.',
             ),
@@ -101,8 +103,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
               onPressed: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('showHome', true);
-
-                // ignore: use_build_context_synchronously
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => const HomePage()),
                 );

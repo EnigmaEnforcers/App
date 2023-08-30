@@ -174,10 +174,6 @@ class _AllChildrenState extends State<AllChildren> {
                         return Center(
                           child: CircularProgressIndicator(
                             color: lighttheme.dialogBackgroundColor,
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
                           ),
                         );
                       },
