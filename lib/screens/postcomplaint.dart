@@ -25,14 +25,15 @@ class PostComplaint extends StatefulWidget {
 
 class _PostComplaintState extends State<PostComplaint> {
   final _formKey = GlobalKey<FormState>();
+  DateTime date = DateTime.now();
   File? _selectedImage;
   var _childName = '';
   var _childAge = '';
   var _parentName = '';
   var _contact = '';
   var _description = '';
-  var _lostdate = '';
-  DateTime date = DateTime(2023, 1, 1);
+  var _lostdate =
+      '${DateTime.now().day} - ${DateTime.now().month} - ${DateTime.now().year}';
 
   //  File
   // File
@@ -209,10 +210,18 @@ class _PostComplaintState extends State<PostComplaint> {
                               Size.fromWidth(150))),
                       onPressed: () async {
                         DateTime? newDate = await showDatePicker(
+                          builder: (context, child) {
+                            return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                      primary: lighttheme.colorScheme.primary),
+                                ),
+                                child: child!);
+                          },
                           context: context,
                           initialDate: date,
                           firstDate: DateTime(2000),
-                          lastDate: DateTime(2030),
+                          lastDate: DateTime.now()
                         );
                         if (newDate == null) {
                           return;
