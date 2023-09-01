@@ -86,17 +86,38 @@ class _UploadImageState extends State<UploadImage> {
               width: 300,
               alignment: Alignment.center,
               child: _selectedImage != null
-                  ? Image.file(
-                      _selectedImage!,
-                      fit: BoxFit.contain
+                  ? Image.file(_selectedImage!, fit: BoxFit.contain
                       // width: 800,
-                    )
+                      )
                   : const Text(
                       "Please Select an Image",
                       style: TextStyle(
                         fontSize: 15,
                       ),
                     ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (_selectedImage == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select an image.'),
+                    ),
+                  );
+                  return;
+                }
+                Navigator.of(context).pop();
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                  lighttheme.colorScheme.primary,
+                ),
+              ),
+              child: const Text('Confirm'),
+
             ),
           ],
         ),
