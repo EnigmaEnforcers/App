@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,7 +14,7 @@ import 'package:uuid/uuid.dart';
 // TODO  ---> Error Handling
 // TODO  ---> LOADING THINGS
 
-final uuid = const Uuid();
+const uuid = Uuid();
 
 class PostComplaint extends StatefulWidget {
   const PostComplaint({super.key});
@@ -29,6 +31,9 @@ class _PostComplaintState extends State<PostComplaint> {
   var _parentName = '';
   var _contact = '';
   var _description = '';
+  var _lostdate = '';
+  DateTime date = DateTime(2023, 1, 1);
+
   //  File
   // File
   void _submitForm() async {
@@ -59,11 +64,13 @@ class _PostComplaintState extends State<PostComplaint> {
             'parent_contact': _contact,
             'image': imgURL,
             'description': _description,
+            'date': _lostdate,
           },
         ),
       );
-
-      // print(response.body);
+      Navigator.of(context).pop();
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Complaint regsitered successfully")));
     } catch (error) {
       // print(error);
       if (!mounted) return;
@@ -81,7 +88,6 @@ class _PostComplaintState extends State<PostComplaint> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: lighttheme.colorScheme.background,
       appBar: AppBar(
@@ -99,7 +105,9 @@ class _PostComplaintState extends State<PostComplaint> {
               key: _formKey,
               child: Column(
                 children: [
-                  const SizedBox(height: 15,),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: TextFormField(
@@ -110,7 +118,7 @@ class _PostComplaintState extends State<PostComplaint> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please ente a valid name';
+                          return 'Please enter a valid name';
                         }
                         return null;
                       },
@@ -132,7 +140,7 @@ class _PostComplaintState extends State<PostComplaint> {
                         if (value == null ||
                             value.trim().isEmpty ||
                             (int.tryParse(value) ?? 0) == 0) {
-                          return 'Please ente a valid age';
+                          return 'Please enter a valid age';
                         }
                         return null;
                       },
@@ -141,7 +149,6 @@ class _PostComplaintState extends State<PostComplaint> {
                       },
                     ),
                   ),
-                  
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
@@ -152,7 +159,7 @@ class _PostComplaintState extends State<PostComplaint> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please ente a valid name';
+                          return 'Please enter a valid name';
                         }
                         return null;
                       },
@@ -172,7 +179,7 @@ class _PostComplaintState extends State<PostComplaint> {
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.trim().length != 10) {
-                          return 'Please ente a valid number';
+                          return 'Please enter a valid number';
                         }
                         return null;
                       },
@@ -194,11 +201,42 @@ class _PostComplaintState extends State<PostComplaint> {
                       },
                     ),
                   ),
+                  OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              lighttheme.dialogBackgroundColor),
+                          fixedSize: const MaterialStatePropertyAll(
+                              Size.fromWidth(150))),
+                      onPressed: () async {
+                        DateTime? newDate = await showDatePicker(
+                          context: context,
+                          initialDate: date,
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2030),
+                        );
+                        if (newDate == null) {
+                          return;
+                        }
+                        setState(() {
+                          date = newDate;
+                          _lostdate =
+                              '${date.day} - ${date.month} - ${date.year}';
+                        });
+                      },
+                      child: (date == DateTime(2023, 1, 1))
+                          ? const Text(
+                              "Select Date",
+                              style: TextStyle(color: Colors.black),
+                            )
+                          : Text(
+                              _lostdate,
+                              style: const TextStyle(color: Colors.black),
+                            ))
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,18,0,10),
+              padding: const EdgeInsets.fromLTRB(0, 18, 0, 10),
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor:
@@ -221,7 +259,14 @@ class _PostComplaintState extends State<PostComplaint> {
                 backgroundColor:
                     MaterialStatePropertyAll(lighttheme.colorScheme.primary),
               ),
-              onPressed: _submitForm,
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const Center(child: CircularProgressIndicator());
+                    });
+                _submitForm();
+              },
               child: const Text("Submit"),
             ),
           ],

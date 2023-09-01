@@ -17,7 +17,7 @@ class _ChildFoundState extends State<ChildFound> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lighttheme.colorScheme.background,
+      backgroundColor: lighttheme.colorScheme.background, 
       appBar: AppBar(
         title: const Text("Found Child"),
         backgroundColor: lighttheme.appBarTheme.backgroundColor,
