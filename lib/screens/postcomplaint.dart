@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 // TODO  ---> Error Handling
 // TODO  ---> LOADING THINGS
 
-final uuid = const Uuid();
+const uuid =  Uuid();
 
 class PostComplaint extends StatefulWidget {
   const PostComplaint({super.key});
