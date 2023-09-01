@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 //TODO ----> SUBMIT BUTTON
 //TODO ----> LOADING
@@ -16,6 +17,7 @@ class UploadImage extends StatefulWidget {
 
 class _UploadImageState extends State<UploadImage> {
   File? _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +55,10 @@ class _UploadImageState extends State<UploadImage> {
             ),
             MaterialButton(
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5),),),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
               color: lighttheme.colorScheme.primary,
               child: const Text(
                 "Pick Image from Camera",
@@ -69,18 +74,30 @@ class _UploadImageState extends State<UploadImage> {
             const SizedBox(
               height: 20,
             ),
-            _selectedImage != null
-                ? SizedBox(
-                    height: 450,
-                    width: 300,
-                    child: Image.file(
+            Container(
+              margin: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                  color: lighttheme.colorScheme.primary,
+                ),
+              ),
+              height: 250,
+              width: 300,
+              alignment: Alignment.center,
+              child: _selectedImage != null
+                  ? Image.file(
                       _selectedImage!,
+                      fit: BoxFit.contain
+                      // width: 800,
+                    )
+                  : const Text(
+                      "Please Select an Image",
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
                     ),
-                  )
-                : const Text(
-                    "Please Select an Image",
-                    style: TextStyle(fontSize: 15),
-                  )
+            ),
           ],
         ),
       ),
@@ -106,16 +123,24 @@ class _UploadImageState extends State<UploadImage> {
           content: Text('We are facing some issue.Try again later'),
         ),
       );
-
       return;
     }
     _pickImage(returnedImage);
   }
 
-  void _pickImage(XFile returnedImage) {
-    setState(() {
-      _selectedImage = File(returnedImage.path);
-    });
-    widget.onPickedImage(_selectedImage!);
+  void _pickImage(XFile returnedImage) async {
+    try {
+      var compressedImage = await FlutterImageCompress.compressAndGetFile(
+          returnedImage.path, '${returnedImage.path}compressed.jpg',
+          quality: 60);
+      setState(
+        () {
+          _selectedImage = File(compressedImage!.path);
+        },
+      );
+      widget.onPickedImage(_selectedImage!);
+    } catch (e) {
+      print(e);
+    }
   }
 }

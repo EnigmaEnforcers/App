@@ -5,6 +5,7 @@ class LostChildren {
   final String parentContact;
   final String description;
   final String image;
+  final String lostdate;
 
   const LostChildren({
     required this.name,
@@ -13,5 +14,6 @@ class LostChildren {
     required this.parentContact,
     required this.description,
     required this.image,
+    required this.lostdate,
   });
 }
