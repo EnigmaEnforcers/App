@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class HomePageButton extends StatefulWidget {
   final String buttonText;
   final Widget screen;
+  final IconData icon;
   const HomePageButton(
-      {super.key, required this.screen, required this.buttonText});
+      {super.key, required this.screen, required this.buttonText, required this.icon});
 
   @override
   State<HomePageButton> createState() => _HomePageButtonState();
@@ -28,7 +29,7 @@ class _HomePageButtonState extends State<HomePageButton> {
                 border: Border.all(color: lighttheme.colorScheme.secondary),
                 borderRadius: BorderRadius.circular(15)),
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStatePropertyAll(lighttheme.colorScheme.primary),
@@ -46,7 +47,9 @@ class _HomePageButtonState extends State<HomePageButton> {
               );
               Navigator.of(context).pop();
             },
-            child: Text(widget.buttonText, style: const TextStyle(fontSize: 20)),
+            label:
+                Text(widget.buttonText, style: const TextStyle(fontSize: 20)),
+            icon: Icon(widget.icon),
           ),
         ],
       ),

@@ -86,11 +86,20 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const HomePageButton(
-                  buttonText: "Post Complaint", screen: PostComplaint()),
+                buttonText: "Post Complaint",
+                screen: PostComplaint(),
+                icon: Icons.add_box_outlined,
+              ),
               const HomePageButton(
-                  buttonText: "Found child", screen: ChildFound()),
+                buttonText: "Found child",
+                screen: ChildFound(),
+                icon: Icons.add_box,
+              ),
               const HomePageButton(
-                  buttonText: "List of Children lost", screen: AllChildren()),
+                buttonText: "List of Children lost",
+                screen: AllChildren(),
+                icon: Icons.list,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
