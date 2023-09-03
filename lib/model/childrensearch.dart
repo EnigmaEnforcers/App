@@ -1,8 +1,10 @@
 import 'package:child_finder/model/lostChildern.dart';
+import 'package:child_finder/widget/childInfo.dart';
 import 'package:flutter/material.dart';
 
 class ChildrenSearchDelegate extends SearchDelegate {
-  
+  List<LostChildren> lostchilds;
+  ChildrenSearchDelegate({required this.lostchilds});
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -25,10 +27,10 @@ class ChildrenSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var name in ) {
-      if (name.toString().toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(name);
+    List<LostChildren> matchQuery = [];
+    for (var n in lostchilds) {
+      if (n.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(n);
       }
     }
     return ListView.builder(
@@ -36,7 +38,9 @@ class ChildrenSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result),
+          // leading: ,
+          // sub
+          title: Text(result.name),
         );
       },
     );
@@ -44,18 +48,28 @@ class ChildrenSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> matchQuery = [];
-    for (var name in searchItems) {
-      if (name.toString().toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(name);
+    List<LostChildren> matchQuery = [];
+    for (var n in lostchilds) {
+      if (n.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(n);
       }
     }
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
-        return ListTile(
-          title: Text(result),
+        return InkWell(
+          onTap: () async {
+            FocusManager.instance.primaryFocus?.unfocus();
+            await Future.delayed(const Duration(milliseconds: 100));
+            showDialog(
+                context: context,
+                builder: (context) =>
+                    buildPopupDialog(context, index, matchQuery));
+          },
+          child: ListTile(
+            title: Text(result.name),
+          ),
         );
       },
     );
