@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:child_finder/model/childrensearch.dart';
 import 'package:child_finder/model/lostChildern.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class AllChildren extends StatefulWidget {
 }
 
 class _AllChildrenState extends State<AllChildren> {
-   List<LostChildren> _lostChildren = [];
+  List<LostChildren> _lostChildren = [];
 
   @override
   void initState() {
@@ -147,7 +148,6 @@ class _AllChildrenState extends State<AllChildren> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        // error here call correct metho
         _loadChilds();
       },
       child: Scaffold(
@@ -156,6 +156,14 @@ class _AllChildrenState extends State<AllChildren> {
           centerTitle: true,
           title: const Text("List of all children lost"),
           backgroundColor: lighttheme.appBarTheme.backgroundColor,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: ChildrenSearchDelegate());
+                },
+                icon: const Icon(Icons.search))
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -210,3 +218,4 @@ class _AllChildrenState extends State<AllChildren> {
     );
   }
 }
+
