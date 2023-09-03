@@ -39,8 +39,22 @@ class _PostComplaintState extends State<PostComplaint> {
   // File
   void _submitForm() async {
     var validation = _formKey.currentState!.validate();
-    if (!validation || _selectedImage == null) return;
+    if (!validation) return;
+    if (_selectedImage == null) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please Upload an Image'),
+        ),
+      );
+      return;
+    }
     _formKey.currentState!.save();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(child: CircularProgressIndicator());
+        });
 
     try {
       final storageRef = FirebaseStorage.instance
@@ -70,9 +84,11 @@ class _PostComplaintState extends State<PostComplaint> {
         ),
       );
       Navigator.of(context).pop();
+
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Complaint regsitered successfully")));
     } catch (error) {
+      Navigator.of(context).pop();
       // print(error);
       if (!mounted) return;
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -140,7 +156,8 @@ class _PostComplaintState extends State<PostComplaint> {
                       validator: (value) {
                         if (value == null ||
                             value.trim().isEmpty ||
-                            (int.tryParse(value) ?? 0) == 0) {
+                            (int.tryParse(value) ?? 26) > 25 ||
+                            (int.tryParse(value) ?? 0) <= 0) {
                           return 'Please enter a valid age';
                         }
                         return null;
@@ -197,6 +214,12 @@ class _PostComplaintState extends State<PostComplaint> {
                         contentPadding: EdgeInsets.all(12),
                         labelText: "Description",
                       ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Please enter a relevant description';
+                        }
+                        return null;
+                      },
                       onSaved: (v) {
                         _description = v!;
                       },
@@ -210,19 +233,19 @@ class _PostComplaintState extends State<PostComplaint> {
                               Size.fromWidth(150))),
                       onPressed: () async {
                         DateTime? newDate = await showDatePicker(
-                          builder: (context, child) {
-                            return Theme(
-                                data: Theme.of(context).copyWith(
-                                  colorScheme: ColorScheme.light(
-                                      primary: lighttheme.colorScheme.primary),
-                                ),
-                                child: child!);
-                          },
-                          context: context,
-                          initialDate: date,
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime.now()
-                        );
+                            builder: (context, child) {
+                              return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                        primary:
+                                            lighttheme.colorScheme.primary),
+                                  ),
+                                  child: child!);
+                            },
+                            context: context,
+                            initialDate: date,
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime.now());
                         if (newDate == null) {
                           return;
                         }
@@ -256,15 +279,17 @@ class _PostComplaintState extends State<PostComplaint> {
                     return UploadImage(
                       onPickedImage: (image) {
                         _selectedImage = image;
-                        setState(() {
-                          
-                        });
+                        setState(() {});
                       },
                     );
                   }));
                 },
-                label: _selectedImage==null? const Text("Upload Image"): const Text("Image Uploaded"),
-                icon: _selectedImage==null?const Icon(Icons.image):const Icon(Icons.check),
+                label: _selectedImage == null
+                    ? const Text("Upload Image")
+                    : const Text("Image Uploaded"),
+                icon: _selectedImage == null
+                    ? const Icon(Icons.image)
+                    : const Icon(Icons.check),
               ),
             ),
             ElevatedButton(
@@ -272,14 +297,7 @@ class _PostComplaintState extends State<PostComplaint> {
                 backgroundColor:
                     MaterialStatePropertyAll(lighttheme.colorScheme.primary),
               ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const Center(child: CircularProgressIndicator());
-                    });
-                _submitForm();
-              },
+              onPressed: _submitForm,
               child: const Text("Submit"),
             ),
           ],
