@@ -16,4 +16,13 @@ class LostChildren {
     required this.image,
     required this.lostdate,
   });
+
+  static LostChildren fromJson(Map<String, dynamic> json) => LostChildren(
+      name: json['childName'],
+      age: json['childAge'],
+      parentName: json['parentName'],
+      parentContact: json['contact'],
+      description: json['description'],
+      image: json['imgUrl'],
+      lostdate: json['lostDate']);
 }

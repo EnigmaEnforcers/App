@@ -9,7 +9,7 @@ import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:child_finder/model/infowidget.dart';
+import 'package:child_finder/widget/infowidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,18 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:uuid/uuid.dart';
-// import 'package:child_finder/widgets/image_input.dart';
-
-// TODO  ---> Error Handling
-// TODO  ---> LOADING THINGS
 
 const uuid = Uuid();
 
@@ -35,8 +29,29 @@ class _PostComplaintState extends State<PostComplaint> {
   var _lostdate =
       '${DateTime.now().day} - ${DateTime.now().month} - ${DateTime.now().year}';
 
-  //  File
-  // File
+  Future uploadLostChild({
+    required String name,
+    required String age,
+    required String contact,
+    required String description,
+    required String imgUrl,
+    required String parentname,
+    required String lostDate,
+  }) async {
+    final lostChild = FirebaseFirestore.instance.collection('lostChild').doc();
+
+    final json = {
+      'childName': name,
+      'childAge': age,
+      'contact': contact,
+      'description': description,
+      'imgUrl': imgUrl,
+      'parentName': parentname,
+      'lostDate': lostDate,
+    };
+    await lostChild.set(json);
+  }
+
   void _submitForm() async {
     var validation = _formKey.currentState!.validate();
     if (!validation) return;
@@ -63,30 +78,20 @@ class _PostComplaintState extends State<PostComplaint> {
           .child('${uuid.v1()}.jpg');
       await storageRef.putFile(_selectedImage!);
       final imgURL = await storageRef.getDownloadURL();
-      // print(imgURL);
-      final url =
-          Uri.https('accenture-578fc-default-rtdb.firebaseio.com', 'lost.json');
-      final response = await http.post(
-        url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: json.encode(
-          {
-            'name': _childName,
-            'age': _childAge,
-            'parent_name': _parentName,
-            'parent_contact': _contact,
-            'image': imgURL,
-            'description': _description,
-            'date': _lostdate,
-          },
-        ),
-      );
+
+      uploadLostChild(
+          name: _childName,
+          age: _childAge,
+          contact: _contact,
+          description: _description,
+          imgUrl: imgURL,
+          parentname: _parentName,
+          lostDate: _lostdate);
+
       Navigator.of(context).pop();
 
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Complaint regsitered successfully")));
+          const SnackBar(content: Text("Complaint registered successfully")));
     } catch (error) {
       Navigator.of(context).pop();
       // print(error);
@@ -297,7 +302,10 @@ class _PostComplaintState extends State<PostComplaint> {
                 backgroundColor:
                     MaterialStatePropertyAll(lighttheme.colorScheme.primary),
               ),
-              onPressed: _submitForm,
+              onPressed: () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                _submitForm();
+              },
               child: const Text("Submit"),
             ),
           ],
