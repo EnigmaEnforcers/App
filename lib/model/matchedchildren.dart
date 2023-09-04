@@ -2,7 +2,7 @@ class MatchedChildren {
   final String name;
   final String age;
   final String parentName;
-  final String parentContact;
+  final String parentsContact;
   final String description;
   final String image;
   final String lostdate;
@@ -11,7 +11,7 @@ class MatchedChildren {
     required this.name,
     required this.age,
     required this.parentName,
-    required this.parentContact,
+    required this.parentsContact,
     required this.description,
     required this.image,
     required this.lostdate,
@@ -21,7 +21,7 @@ class MatchedChildren {
       name: json['childName'],
       age: json['childAge'],
       parentName: json['parentName'],
-      parentContact: json['contact'],
+      parentsContact: json['parentsContact'],
       description: json['description'],
       image: json['imgUrl'],
       lostdate: json['lostDate']);

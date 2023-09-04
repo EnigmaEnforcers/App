@@ -3,6 +3,7 @@
 import 'package:child_finder/model/homepagebutton.dart';
 import 'package:child_finder/screens/allchildren.dart';
 import 'package:child_finder/screens/child_found.dart';
+import 'package:child_finder/screens/macthedchild.dart';
 import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
@@ -98,6 +99,11 @@ class _HomePageState extends State<HomePage> {
               const HomePageButton(
                 buttonText: "List of Children lost",
                 screen: AllChildren(),
+                icon: Icons.list,
+              ),
+              const HomePageButton(
+                buttonText: "List of Children found",
+                screen: MatchedChild(),
                 icon: Icons.list,
               ),
               Padding(

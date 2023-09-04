@@ -1,7 +1,9 @@
 import 'package:child_finder/model/childrensearch.dart';
 import 'package:child_finder/model/matchedchildren.dart';
+import 'package:child_finder/model/matchedsearch.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:child_finder/widget/childInfo.dart';
+import 'package:child_finder/widget/matchedinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +15,10 @@ class MatchedChild extends StatefulWidget {
 }
 
 class _MatchedChildState extends State<MatchedChild> {
-  final List<MatchedChildren> matchedChildrenList = [];
+  List<MatchedChildren> matchedChildrenListMain = [];
 
   Stream<List<MatchedChildren>> readComplaints() => FirebaseFirestore.instance
-      .collection('lostChild')
+      .collection('matchedChildren')
       .snapshots()
       .map((snapshot) => snapshot.docs
           .map((doc) => MatchedChildren.fromJson(doc.data()))
@@ -26,33 +28,33 @@ class _MatchedChildState extends State<MatchedChild> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        setState(() { 
-        });
+        setState(() {});
         readComplaints();
       },
       child: Scaffold(
         backgroundColor: lighttheme.colorScheme.background,
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("List of all children lost"),
+          title: const Text("List of all children found"),
           backgroundColor: lighttheme.appBarTheme.backgroundColor,
-          // actions: [
-          //   IconButton(
-          //       onPressed: () {
-          //         showSearch(
-          //             context: context,
-          //             delegate:
-          //                 ChildrenSearchDelegate(lostchilds: matchedChildrenList));
-          //       },
-          //       icon: const Icon(Icons.search))
-          // ],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: MatchedChildrenSearchDelegate(
+                        matchedChild: matchedChildrenListMain),
+                  );
+                },
+                icon: const Icon(Icons.search))
+          ],
         ),
         body: StreamBuilder(
             stream: readComplaints(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 final matchedChildrenList = snapshot.data;
-
+                matchedChildrenListMain = matchedChildrenList!;
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(
@@ -63,13 +65,13 @@ class _MatchedChildState extends State<MatchedChild> {
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 30,
                       ),
-                      itemCount: matchedChildrenList!.length,
+                      itemCount: matchedChildrenList.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return GestureDetector(
                           onTap: () {
                             showDialog(
                                 context: ctx,
-                                builder: (ctx) => buildPopupDialog(
+                                builder: (ctx) => buildMatchedPopupDialog(
                                     ctx, index, matchedChildrenList));
                           },
                           child: Container(

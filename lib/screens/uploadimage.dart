@@ -117,7 +117,6 @@ class _UploadImageState extends State<UploadImage> {
                 ),
               ),
               child: const Text('Confirm'),
-
             ),
           ],
         ),
@@ -161,7 +160,7 @@ class _UploadImageState extends State<UploadImage> {
       );
       widget.onPickedImage(_selectedImage!);
     } catch (e) {
-      print(e);
+      (e);
     }
   }
 }

@@ -97,7 +97,6 @@ class _PostComplaintState extends State<PostComplaint> {
       // print(error);
       if (!mounted) return;
       ScaffoldMessenger.of(context).clearSnackBars();
-
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(

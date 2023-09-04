@@ -21,8 +21,8 @@ class LostChildren {
       name: json['childName'],
       age: json['childAge'],
       parentName: json['parentName'],
-      parentContact: json['contact'],
-      description: json['description'],
+      parentContact: json['parentsContact'],
+      description: json['lostChildDescription'],
       image: json['imgUrl'],
       lostdate: json['lostDate']);
 }
