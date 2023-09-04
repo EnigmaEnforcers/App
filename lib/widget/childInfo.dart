@@ -1,13 +1,13 @@
-import 'package:child_finder/model/lostChildern.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 
-Widget buildPopupDialog(BuildContext context, index , _lostChildren) {
+Widget buildPopupDialog(BuildContext context, index, lostChildren) {
   return AlertDialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
     backgroundColor: lighttheme.colorScheme.secondary,
     title: Text(
       'Child Details :',
-      style: TextStyle(color: lighttheme.dialogBackgroundColor),
+      style: TextStyle(color: lighttheme.colorScheme.background),
     ),
     content: Column(
       mainAxisSize: MainAxisSize.min,
@@ -15,67 +15,72 @@ Widget buildPopupDialog(BuildContext context, index , _lostChildren) {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: 200,
-            width: 200,
-            child: Image.network(_lostChildren[index].image),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.network(
+              lostChildren[index].image,
+              height: 150,
+            ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Child name: ${_lostChildren[index].name}",
+            "Child name: ${lostChildren[index].name}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Lost Date: ${_lostChildren[index].lostdate}",
+            "Lost Date: ${lostChildren[index].lostdate}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Child age: ${_lostChildren[index].age}",
+            "Child age: ${lostChildren[index].age}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Parent name: ${_lostChildren[index].parentName}",
+            "Parent name: ${lostChildren[index].parentName}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Parent contact: ${_lostChildren[index].parentContact}",
+            "Parent contact: ${lostChildren[index].parentContact}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Description: ${_lostChildren[index].description}",
+            "Description: ${lostChildren[index].description}",
             style: TextStyle(color: lighttheme.colorScheme.background),
           ),
         ),
       ],
     ),
     actions: <Widget>[
-      OutlinedButton(
-        style: ButtonStyle(
-            backgroundColor:
-                MaterialStatePropertyAll(lighttheme.colorScheme.background)),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: Text(
-          'Close',
-          style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0,0,8,8),
+        child: OutlinedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(lighttheme.colorScheme.background)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+          ),
         ),
       ),
     ],

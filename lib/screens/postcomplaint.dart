@@ -43,8 +43,8 @@ class _PostComplaintState extends State<PostComplaint> {
     final json = {
       'childName': name,
       'childAge': age,
-      'contact': contact,
-      'description': description,
+      'parentsContact': contact,
+      'lostChildDescription': description,
       'imgUrl': imgUrl,
       'parentName': parentname,
       'lostDate': lostDate,

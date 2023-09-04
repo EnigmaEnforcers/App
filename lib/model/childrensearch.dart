@@ -61,7 +61,7 @@ class ChildrenSearchDelegate extends SearchDelegate {
         return InkWell(
           onTap: () async {
             FocusManager.instance.primaryFocus?.unfocus();
-            await Future.delayed(const Duration(milliseconds: 100));
+            await Future.delayed(const Duration(milliseconds: 150),);
             showDialog(
                 context: context,
                 builder: (context) =>

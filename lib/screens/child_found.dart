@@ -41,8 +41,8 @@ class _ChildFoundState extends State<ChildFound> {
     final json = {
       'childName': name,
       'childAge': age,
-      'contact': contact,
-      'description': description,
+      'findersContact': contact,
+      'foundChildDescription': description,
       'imgUrl': imgUrl,
     };
     await foundChild.set(json);
