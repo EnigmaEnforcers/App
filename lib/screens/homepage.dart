@@ -112,7 +112,6 @@ class _HomePageState extends State<HomePage> {
                   height: 100,
                   width: 300,
                   decoration: BoxDecoration(
-                    color: lighttheme.colorScheme.primary,
                     shape: BoxShape.rectangle,
                     border: Border.all(color: lighttheme.colorScheme.secondary),
                     borderRadius: BorderRadius.circular(15),
@@ -133,8 +132,15 @@ class _HomePageState extends State<HomePage> {
                                 "Cannot call the nearest police station !"));
                       }
                     },
-                    child: const Text("Call Nearest Police Station",
-                        style: TextStyle(fontSize: 20)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_police_outlined,color: Colors.amber,),
+                        SizedBox(width: 7),
+                        Text("Call Police Station",
+                            style: TextStyle(fontSize: 20,color: Colors.amber)),
+                      ],
+                    ),
                   ),
                 ),
               ),

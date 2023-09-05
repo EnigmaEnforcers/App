@@ -67,6 +67,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lighttheme.colorScheme.primary,
       body: Container(
         padding: const EdgeInsets.only(bottom: 70),
         child: PageView(
@@ -112,8 +113,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 style: TextStyle(
                     fontSize: 24,
                     color: lighttheme.appBarTheme.backgroundColor),
-              ))
+              ),)
           : Container(
+            color: lighttheme.colorScheme.primary,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 70,
               child: Row(
@@ -124,7 +126,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     child: Text(
                       "Skip",
                       style: TextStyle(
-                          color: lighttheme.appBarTheme.backgroundColor),
+                        fontSize: 15,
+                          color: lighttheme.colorScheme.background),
                     ),
                   ),
                   Center(
@@ -132,9 +135,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       controller: controller,
                       count: 3,
                       effect: WormEffect(
+                        dotHeight:10 ,
+                        dotWidth: 10,
                         spacing: 14,
-                        dotColor: Colors.cyan,
-                        activeDotColor: lighttheme.colorScheme.secondary,
+                        dotColor: lighttheme.colorScheme.background,
+                        activeDotColor: Colors.amber,
                       ),
                       onDotClicked: (index) => controller.animateToPage(index,
                           duration: const Duration(milliseconds: 500),
@@ -147,7 +152,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         curve: Curves.easeInOut),
                     child: Text("Next",
                         style: TextStyle(
-                            color: lighttheme.appBarTheme.backgroundColor)),
+                          fontSize: 15,
+                            color: lighttheme.colorScheme.background)),
                   ),
                 ],
               ),

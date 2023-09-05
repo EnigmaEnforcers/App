@@ -6,7 +6,10 @@ class HomePageButton extends StatefulWidget {
   final Widget screen;
   final IconData icon;
   const HomePageButton(
-      {super.key, required this.screen, required this.buttonText, required this.icon});
+      {super.key,
+      required this.screen,
+      required this.buttonText,
+      required this.icon});
 
   @override
   State<HomePageButton> createState() => _HomePageButtonState();
@@ -17,41 +20,51 @@ class _HomePageButtonState extends State<HomePageButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 100,
-            width: 300,
-            decoration: BoxDecoration(
-                color: Colors.transparent,
-                shape: BoxShape.rectangle,
-                border: Border.all(color: lighttheme.colorScheme.secondary),
-                borderRadius: BorderRadius.circular(15)),
+      child: GestureDetector(
+        onTap: () async {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const Center(child: CircularProgressIndicator());
+              });
+          await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => widget.screen),
+          );
+          if (!mounted) return;
+          Navigator.of(context).pop();
+        },
+        child: Container(
+          height: 100,
+          width: 300,
+          decoration: BoxDecoration(
+            gradient: RadialGradient(colors: [
+              lighttheme.colorScheme.primary,
+              lighttheme.colorScheme.secondary
+            ], radius: 2.5),
+            color: lighttheme.colorScheme.primary,
+            shape: BoxShape.rectangle,
+            border: Border.all(color: lighttheme.colorScheme.primary),
+            borderRadius: BorderRadius.circular(15),
           ),
-          ElevatedButton.icon(
-            style: ButtonStyle(
-                backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.primary),
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)))),
-            onPressed: () async {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const Center(child: CircularProgressIndicator());
-                  });
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => widget.screen),
-              );
-              Navigator.of(context).pop();
-            },
-            label:
-                Text(widget.buttonText, style: const TextStyle(fontSize: 20)),
-            icon: Icon(widget.icon),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                widget.icon,
+                color: lighttheme.colorScheme.background,
+              ),
+              const SizedBox(
+                width: 7,
+              ),
+              Text(widget.buttonText,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: lighttheme.colorScheme.background))
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
