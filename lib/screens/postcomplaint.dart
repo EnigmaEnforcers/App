@@ -6,6 +6,7 @@ import 'package:child_finder/themes/lighttheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
@@ -27,7 +28,21 @@ class _PostComplaintState extends State<PostComplaint> {
   var _contact = '';
   var _description = '';
   var _lostdate =
-      '${DateTime.now().day} - ${DateTime.now().month} - ${DateTime.now().year}';
+      'Please Select Date';
+       void _presentdatePicker() async {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+    setState(() {
+      _lostdate = DateFormat.yMd().format(pickedDate!);
+    });
+  }
+
 
   Future uploadLostChild({
     required String name,
@@ -229,45 +244,20 @@ class _PostComplaintState extends State<PostComplaint> {
                       },
                     ),
                   ),
-                  OutlinedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              lighttheme.dialogBackgroundColor),
-                          fixedSize: const MaterialStatePropertyAll(
-                              Size.fromWidth(150))),
-                      onPressed: () async {
-                        DateTime? newDate = await showDatePicker(
-                            builder: (context, child) {
-                              return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                        primary:
-                                            lighttheme.colorScheme.primary),
-                                  ),
-                                  child: child!);
-                            },
-                            context: context,
-                            initialDate: date,
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime.now());
-                        if (newDate == null) {
-                          return;
-                        }
-                        setState(() {
-                          date = newDate;
-                          _lostdate =
-                              '${date.day} - ${date.month} - ${date.year}';
-                        });
-                      },
-                      child: (date == DateTime(2023, 1, 1))
-                          ? const Text(
-                              "Select Date",
-                              style: TextStyle(color: Colors.black),
-                            )
-                          : Text(
-                              _lostdate,
-                              style: const TextStyle(color: Colors.black),
-                            ))
+                   Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                       _lostdate
+                      ),
+                      IconButton(
+                        onPressed: _presentdatePicker,
+                        icon: const Icon(
+                          Icons.calendar_month,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
