@@ -1,5 +1,6 @@
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomePageButton extends StatefulWidget {
   final String buttonText;
@@ -29,7 +30,11 @@ class _HomePageButtonState extends State<HomePageButton> {
               });
           await Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => widget.screen),
+            PageTransition(
+                type: PageTransitionType.fade,                
+                duration: const Duration(milliseconds: 250),
+                reverseDuration: const Duration(milliseconds: 250),
+                 child: widget.screen),
           );
           if (!mounted) return;
           Navigator.of(context).pop();

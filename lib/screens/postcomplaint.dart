@@ -292,14 +292,18 @@ class _PostComplaintState extends State<PostComplaint> {
                       MaterialStatePropertyAll(lighttheme.colorScheme.primary),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                    return UploadImage(
-                      onPickedImage: (image) {
-                        _selectedImage = image;
-                        setState(() {});
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return UploadImage(
+                          onPickedImage: (image) {
+                            _selectedImage = image;
+                            setState(() {});
+                          },
+                        );
                       },
-                    );
-                  }));
+                    ),
+                  );
                 },
                 label: _selectedImage == null
                     ? const Text("Upload Image")

@@ -3,6 +3,7 @@
 import 'package:child_finder/screens/homepage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -101,13 +102,16 @@ class _OnboardScreenState extends State<OnboardScreen> {
           ? TextButton(
               style: TextButton.styleFrom(
                   minimumSize: const Size.fromHeight(70),
-                  
                   backgroundColor: lighttheme.colorScheme.primary),
               onPressed: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('showHome', true);
                 Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: const Duration(milliseconds: 250),
+                      reverseDuration: const Duration(milliseconds: 250),
+                      child: const HomePage()),
                 );
               },
               child: Text(
