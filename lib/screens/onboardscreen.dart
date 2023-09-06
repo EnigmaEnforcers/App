@@ -99,8 +99,10 @@ class _OnboardScreenState extends State<OnboardScreen> {
       ),
       bottomSheet: isLastPage
           ? TextButton(
-              style:
-                  TextButton.styleFrom(minimumSize: const Size.fromHeight(70)),
+              style: TextButton.styleFrom(
+                  minimumSize: const Size.fromHeight(70),
+                  
+                  backgroundColor: lighttheme.colorScheme.primary),
               onPressed: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('showHome', true);
@@ -111,11 +113,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
               child: Text(
                 "Get Started",
                 style: TextStyle(
-                    fontSize: 24,
-                    color: lighttheme.appBarTheme.backgroundColor),
-              ),)
+                    fontSize: 24, color: lighttheme.colorScheme.background),
+              ),
+            )
           : Container(
-            color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.primary,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 70,
               child: Row(
@@ -126,7 +128,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     child: Text(
                       "Skip",
                       style: TextStyle(
-                        fontSize: 15,
+                          fontSize: 15,
                           color: lighttheme.colorScheme.background),
                     ),
                   ),
@@ -135,7 +137,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       controller: controller,
                       count: 3,
                       effect: WormEffect(
-                        dotHeight:10 ,
+                        dotHeight: 10,
                         dotWidth: 10,
                         spacing: 14,
                         dotColor: lighttheme.colorScheme.background,
@@ -152,7 +154,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         curve: Curves.easeInOut),
                     child: Text("Next",
                         style: TextStyle(
-                          fontSize: 15,
+                            fontSize: 15,
                             color: lighttheme.colorScheme.background)),
                   ),
                 ],

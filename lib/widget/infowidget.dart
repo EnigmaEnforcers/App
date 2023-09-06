@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 Widget buildPopupDialog(BuildContext context) {
   return AlertDialog(
-    backgroundColor: lighttheme.colorScheme.tertiary,
+    backgroundColor: lighttheme.colorScheme.background,
     title: const Text("Help: "),
     content: const Column(
       mainAxisSize: MainAxisSize.min,

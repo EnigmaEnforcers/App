@@ -19,7 +19,7 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
             borderRadius: BorderRadius.circular(5),
             child: Image.network(
               lostChildren[index].image,
-              height: 150,
+              height: 250,
             ),
           ),
         ),
@@ -69,7 +69,7 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
     ),
     actions: <Widget>[
       Padding(
-        padding: const EdgeInsets.fromLTRB(0,0,8,8),
+        padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
         child: OutlinedButton(
           style: ButtonStyle(
               backgroundColor:
