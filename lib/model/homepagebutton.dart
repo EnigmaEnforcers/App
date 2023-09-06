@@ -38,13 +38,13 @@ class _HomePageButtonState extends State<HomePageButton> {
           height: 100,
           width: 300,
           decoration: BoxDecoration(
-            gradient: RadialGradient(
+            gradient: LinearGradient(
               colors: [
                 lighttheme.colorScheme.primary,
                 lighttheme.colorScheme.secondary,
-                Colors.black
+                lighttheme.colorScheme.secondary,
+                lighttheme.colorScheme.primary,
               ],
-              radius: 2.2,
             ),
             color: lighttheme.colorScheme.primary,
             shape: BoxShape.rectangle,
@@ -63,7 +63,7 @@ class _HomePageButtonState extends State<HomePageButton> {
               ),
               Text(widget.buttonText,
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       fontSize: 20,
                       color: lighttheme.colorScheme.background))
             ],

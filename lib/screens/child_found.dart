@@ -225,7 +225,13 @@ class _ChildFoundState extends State<ChildFound> {
                     children: [
                       Text(_lostdate),
                       IconButton(
-                        onPressed: _presentdatePicker,
+                        onPressed: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          _presentdatePicker();
+                        },
                         icon: const Icon(
                           Icons.calendar_month,
                         ),

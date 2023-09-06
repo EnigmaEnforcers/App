@@ -8,6 +8,7 @@ import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:child_finder/widget/infowidget.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       return await showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              backgroundColor: lighttheme.colorScheme.tertiary,
+              backgroundColor: lighttheme.colorScheme.background,
               title: const Text('Exit the app'),
               content: const Text('Do you want to exit Find My Child ?'),
               actions: [
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ) ??
-          false; //if showDialouge had returned null, then return false
+          false;
     }
 
     return WillPopScope(
@@ -87,22 +88,22 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const HomePageButton(
-                buttonText: "Post Complaint",
+                buttonText: "Lost your child ?",
                 screen: PostComplaint(),
                 icon: Icons.add_box_outlined,
               ),
               const HomePageButton(
-                buttonText: "Found child",
+                buttonText: "Found a child ?",
                 screen: ChildFound(),
                 icon: Icons.add_box,
               ),
               const HomePageButton(
-                buttonText: "List of Children lost",
+                buttonText: "List of all children lost",
                 screen: AllChildren(),
                 icon: Icons.list,
               ),
               const HomePageButton(
-                buttonText: "List of Children found",
+                buttonText: "List of all children found",
                 screen: MatchedChild(),
                 icon: Icons.list,
               ),
@@ -135,10 +136,14 @@ class _HomePageState extends State<HomePage> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.local_police_outlined,color: Colors.amber,),
+                        Icon(
+                          Icons.local_police_outlined,
+                          color: Colors.amber,
+                        ),
                         SizedBox(width: 7),
                         Text("Call Police Station",
-                            style: TextStyle(fontSize: 20,color: Colors.amber)),
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.amber)),
                       ],
                     ),
                   ),

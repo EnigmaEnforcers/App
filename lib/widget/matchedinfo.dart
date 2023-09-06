@@ -1,4 +1,3 @@
-import 'package:child_finder/model/matchedchildren.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ Widget buildMatchedPopupDialog(BuildContext context, index, matchedChildren) {
             borderRadius: BorderRadius.circular(5),
             child: Image.network(
               matchedChildren[index].image,
-              height: 150,
+              height: 250,
             ),
           ),
         ),

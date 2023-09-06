@@ -27,14 +27,32 @@ class _PostComplaintState extends State<PostComplaint> {
   var _parentName = '';
   var _contact = '';
   var _description = '';
-  var _lostdate =
-      'Please Select Date';
+  var _lostdate = 'Please Select Date';
 
-
-    void _presentdatePicker() async {
+  void _presentdatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
     final pickedDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary:
+                  lighttheme.colorScheme.primary, // header background color
+              onPrimary: lighttheme.colorScheme.background, // header text color
+              onSurface:
+                  lighttheme.appBarTheme.backgroundColor!, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    lighttheme.colorScheme.secondary, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
       context: context,
       initialDate: now,
       firstDate: firstDate,
@@ -44,7 +62,6 @@ class _PostComplaintState extends State<PostComplaint> {
       _lostdate = DateFormat.yMd().format(pickedDate!);
     });
   }
-
 
   Future uploadLostChild({
     required String name,
@@ -246,14 +263,18 @@ class _PostComplaintState extends State<PostComplaint> {
                       },
                     ),
                   ),
-                   Row(
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                       _lostdate
-                      ),
+                      Text(_lostdate),
                       IconButton(
-                        onPressed: _presentdatePicker,
+                        onPressed: () {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          _presentdatePicker();
+                        },
                         icon: const Icon(
                           Icons.calendar_month,
                         ),
