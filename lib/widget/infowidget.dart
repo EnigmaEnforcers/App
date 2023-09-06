@@ -3,57 +3,47 @@ import 'package:flutter/material.dart';
 
 Widget buildPopupDialog(BuildContext context) {
   return AlertDialog(
+    elevation: 70,
     backgroundColor: lighttheme.colorScheme.background,
-    title: const Text("Help: "),
+    // title: const Text("Help: "),
     content: const Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                "Post Complaint:",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "To post a complaint of an lost child.",
-                textAlign: TextAlign.justify,
-              ),
-            ],
-          ),
+      children: [
+        Text(
+          'Help:',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                "Found child:",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "To report if found an lost child.",
-                textAlign: TextAlign.justify,
-              ),
-            ],
-          ),
+        SizedBox(
+          height: 10,
         ),
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                "List of Children found:",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "To see the list of all lost children.",
-                textAlign: TextAlign.justify,
-              ),
-            ],
-          ),
-        )
+        Text(
+          "Post Complaint:",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "To post a complaint of an lost child.",
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Found child:",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "To report if found an lost child.",
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          "List of Children found:",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "To see the list of all lost children.",
+        ),
       ],
     ),
     actions: <Widget>[

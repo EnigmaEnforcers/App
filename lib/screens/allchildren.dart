@@ -42,16 +42,7 @@ class _AllChildrenState extends State<AllChildren> {
                 icon: const Icon(Icons.search))
           ],
         ),
-        body: RefreshIndicator(
-          onRefresh: () {
-            return Future.delayed(
-              const Duration(seconds: 1),
-              () {
-                initState();
-              },
-            );
-          },
-          child: StreamBuilder(
+        body:  StreamBuilder(
             stream: readComplaints(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -115,7 +106,6 @@ class _AllChildrenState extends State<AllChildren> {
             },
           ),
         ),
-      ),
     );
   }
 }

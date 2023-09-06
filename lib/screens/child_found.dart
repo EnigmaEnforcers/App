@@ -38,7 +38,7 @@ class _ChildFoundState extends State<ChildFound> {
       lastDate: now,
     );
     setState(() {
-      _lostdate = DateFormat.yMd().format(pickedDate!);
+       _lostdate = DateFormat('EEE , dd-MM-yyyy').format(pickedDate!);
     });
   }
 

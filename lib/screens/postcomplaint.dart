@@ -59,7 +59,7 @@ class _PostComplaintState extends State<PostComplaint> {
       lastDate: now,
     );
     setState(() {
-      _lostdate = DateFormat.yMd().format(pickedDate!);
+      _lostdate = DateFormat('EEE , dd-MM-yyyy').format(pickedDate!);
     });
   }
 
