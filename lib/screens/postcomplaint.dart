@@ -31,22 +31,19 @@ class _PostComplaintState extends State<PostComplaint> {
 
   void _presentdatePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    final firstDate = DateTime(2000);
     final pickedDate = await showDatePicker(
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary:
-                  lighttheme.colorScheme.primary, // header background color
-              onPrimary: lighttheme.colorScheme.background, // header text color
-              onSurface:
-                  lighttheme.appBarTheme.backgroundColor!, // body text color
+              primary: lighttheme.colorScheme.primary,
+              onPrimary: lighttheme.colorScheme.background,
+              onSurface: lighttheme.appBarTheme.backgroundColor!,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor:
-                    lighttheme.colorScheme.secondary, // button text color
+                foregroundColor: lighttheme.colorScheme.secondary,
               ),
             ),
           ),
@@ -94,6 +91,15 @@ class _PostComplaintState extends State<PostComplaint> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please Upload an Image'),
+        ),
+      );
+      return;
+    }
+    if(_lostdate == 'Please Select Date'){
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please Select a Date'),
         ),
       );
       return;
@@ -148,7 +154,7 @@ class _PostComplaintState extends State<PostComplaint> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          "Post a Complain",
+          "Post a Complaint",
         ),
         backgroundColor: lighttheme.appBarTheme.backgroundColor,
       ),

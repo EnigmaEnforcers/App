@@ -4,11 +4,9 @@ import 'package:child_finder/model/homepagebutton.dart';
 import 'package:child_finder/screens/allchildren.dart';
 import 'package:child_finder/screens/child_found.dart';
 import 'package:child_finder/screens/macthedchild.dart';
-import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:child_finder/widget/infowidget.dart';
@@ -72,13 +70,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
                 onPressed: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.setBool('showHome', false);
-
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => const OnboardScreen()),
-                  );
+                  showExitPopup();
                 },
                 icon: const Icon(Icons.logout))
           ],

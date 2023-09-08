@@ -30,15 +30,32 @@ class _ChildFoundState extends State<ChildFound> {
 
   void _presentdatePicker() async {
     final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    final firstDate = DateTime(2000);
     final pickedDate = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: lighttheme.colorScheme.primary,
+              onPrimary: lighttheme.colorScheme.background,
+              onSurface: lighttheme.appBarTheme.backgroundColor!,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: lighttheme.colorScheme.secondary,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
       context: context,
       initialDate: now,
       firstDate: firstDate,
       lastDate: now,
     );
     setState(() {
-       _lostdate = DateFormat('EEE , dd-MM-yyyy').format(pickedDate!);
+      _lostdate = DateFormat('EEE , dd-MM-yyyy').format(pickedDate!);
     });
   }
 
@@ -70,6 +87,15 @@ class _ChildFoundState extends State<ChildFound> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please Upload an Image'),
+        ),
+      );
+      return;
+    }
+    if (_lostdate == 'Please Select Date') {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please Select a Date'),
         ),
       );
       return;

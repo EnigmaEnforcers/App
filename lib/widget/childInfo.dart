@@ -17,9 +17,14 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              lostChildren[index].image,
-              height: 250,
+            child: InteractiveViewer(
+              minScale: 0.5,
+              maxScale: 3,
+              panEnabled: false,
+              child: Image.network(
+                lostChildren[index].image,
+                height: 250,
+              ),
             ),
           ),
         ),

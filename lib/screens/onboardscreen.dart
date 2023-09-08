@@ -28,6 +28,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
     required String urlImage,
     required String title,
     required String subtitle,
+    required String hashtag,
   }) =>
       Container(
         color: color,
@@ -44,6 +45,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
             ),
             Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: lighttheme.colorScheme.background,
                 fontSize: 32,
@@ -57,7 +59,21 @@ class _OnboardScreenState extends State<OnboardScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 subtitle,
+                textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontSize: 15,
+                  color: lighttheme.colorScheme.background,
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                hashtag,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                   color: lighttheme.colorScheme.background,
                 ),
               ),
@@ -80,20 +96,23 @@ class _OnboardScreenState extends State<OnboardScreen> {
             buildPage(
               color: lighttheme.colorScheme.primary,
               urlImage: 'assets/onboard1.png',
-              title: 'Post Complain',
-              subtitle: 'To post a complaint of an lost child.',
+              title: 'Post a Complaint',
+              subtitle: "Together, we can bring them home.\nPost your child's details in the\n'Lost Your Child ?' section.",
+              hashtag: '#HelpFindOurChildren'
             ),
             buildPage(
               color: lighttheme.colorScheme.primary,
               urlImage: 'assets/onboard2.png',
-              title: 'Found child',
-              subtitle: 'To report if found an lost child.',
+              title: "Reunite, Found a Lost Child !",
+              subtitle: "Let's bring them back to safety together.",
+              hashtag: '#HelpFindOurChildren',
             ),
             buildPage(
               color: lighttheme.colorScheme.primary,
               urlImage: 'assets/onboard3.png',
-              title: 'All lost children',
-              subtitle: 'List of all lost children till date.',
+              title: 'All Reunited Children',
+              subtitle: 'An extensive list of all reunited children till date.',
+              hashtag: '#HelpFindOurChildren'
             ),
           ],
         ),
@@ -101,6 +120,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
       bottomSheet: isLastPage
           ? TextButton(
               style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                   minimumSize: const Size.fromHeight(70),
                   backgroundColor: lighttheme.colorScheme.primary),
               onPressed: () async {
