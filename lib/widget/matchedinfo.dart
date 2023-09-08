@@ -1,5 +1,50 @@
+import 'package:child_finder/model/matchedchildren.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+
+Widget buildMatchedImagePopupDialog(
+    BuildContext context, index, matchedChildren) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    backgroundColor: lighttheme.colorScheme.secondary,
+    title: Text(
+      matchedChildren[index].name,
+      style: TextStyle(color: lighttheme.colorScheme.background),
+    ),
+    content: InteractiveViewer(
+      maxScale: 2,
+      minScale: 0.5,
+      panEnabled: true,
+      child: Image.network(
+        matchedChildren[index].image,
+        height: 300,
+        width: 300,
+      ),
+    ),
+    actions: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+        child: OutlinedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(lighttheme.colorScheme.background)),
+          onPressed: () {
+            Navigator.of(context).pop();
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  buildMatchedPopupDialog(context, index, matchedChildren),
+            );
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+          ),
+        ),
+      ),
+    ],
+  );
+}
 
 Widget buildMatchedPopupDialog(BuildContext context, index, matchedChildren) {
   return AlertDialog(
@@ -17,9 +62,19 @@ Widget buildMatchedPopupDialog(BuildContext context, index, matchedChildren) {
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              matchedChildren[index].image,
-              height: 250,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (ctx) =>
+                      buildMatchedImagePopupDialog(ctx, index, matchedChildren),
+                );
+              },
+              child: Image.network(
+                matchedChildren[index].image,
+                height: 200,
+              ),
             ),
           ),
         ),

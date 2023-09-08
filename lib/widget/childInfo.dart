@@ -1,5 +1,50 @@
+// ignore_for_file: file_names
+
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
+
+Widget buildImagePopupDialog(BuildContext context, index, lostChildren) {
+  return AlertDialog(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    backgroundColor: lighttheme.colorScheme.secondary,
+    title: Text(
+      lostChildren[index].name,
+      style: TextStyle(color: lighttheme.colorScheme.background),
+    ),
+    content: InteractiveViewer(
+      maxScale: 2,
+      minScale: 0.5,
+      panEnabled: true,
+      child: Image.network(
+        lostChildren[index].image,
+        height: 300,
+        width: 300,
+      ),
+    ),
+    actions: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+        child: OutlinedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(lighttheme.colorScheme.background)),
+          onPressed: () {
+            Navigator.of(context).pop();
+            showDialog(
+              context: context,
+              builder: (context) =>
+                  buildPopupDialog(context, index, lostChildren),
+            );
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+          ),
+        ),
+      ),
+    ],
+  );
+}
 
 Widget buildPopupDialog(BuildContext context, index, lostChildren) {
   return AlertDialog(
@@ -17,13 +62,18 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
           padding: const EdgeInsets.all(8.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: InteractiveViewer(
-              minScale: 0.5,
-              maxScale: 3,
-              panEnabled: false,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (ctx) =>
+                      buildImagePopupDialog(ctx, index, lostChildren),
+                );
+              },
               child: Image.network(
                 lostChildren[index].image,
-                height: 250,
+                height: 200,
               ),
             ),
           ),

@@ -65,7 +65,7 @@ class _AllChildrenState extends State<AllChildren> {
                             showDialog(
                                 context: ctx,
                                 builder: (ctx) => buildPopupDialog(
-                                    ctx, index, lostChildrenList));
+                                    ctx, index, lostChildrenList),);
                           },
                           child: Container(
                             alignment: Alignment.center,

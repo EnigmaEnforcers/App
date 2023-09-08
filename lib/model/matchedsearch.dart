@@ -1,5 +1,5 @@
 import 'package:child_finder/model/matchedchildren.dart';
-import 'package:child_finder/widget/childInfo.dart';
+import 'package:child_finder/widget/matchedinfo.dart';
 import 'package:flutter/material.dart';
 
 class MatchedChildrenSearchDelegate extends SearchDelegate {
@@ -38,8 +38,6 @@ class MatchedChildrenSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
-          // leading: ,
-          // sub
           title: Text(result.name),
         );
       },
@@ -64,10 +62,13 @@ class MatchedChildrenSearchDelegate extends SearchDelegate {
             await Future.delayed(
               const Duration(milliseconds: 150),
             );
+            if (!context.mounted) {
+              return;
+            }
             showDialog(
                 context: context,
                 builder: (context) =>
-                    buildPopupDialog(context, index, matchQuery));
+                    buildMatchedPopupDialog(context, index, matchQuery));
           },
           child: ListTile(
             title: Text(result.name),
