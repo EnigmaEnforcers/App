@@ -4,6 +4,8 @@ Welcome to Find My Kid, an app dedicated to helping users find their lost childr
 
 ## #HelpFindOurChildren
 
+![Onbaord Screen](https://github.com/EnigmaEnforcers/App-Screen/blob/main/onboard.gif)
+
 # Features
 
 Report a Lost Child: Users can easily report a lost child by providing essential details, including the child's name, photo, description, and contact information.
@@ -15,28 +17,28 @@ Facial Recognition: Child Finder employs a facial recognition model to compare p
 ## Reporting a Lost Child
 
 Click on the "Lost your child ?" button.
-Fill out the provided form with the following information:
 
-Child's name.
-Child's age.
-Parents name.
-Contact details.
-A detailed description of the child.
+Fill out the provided form with the following information:
+Child's name.\
+Child's age.\
+Parents name.\
+Contact details.\
+A detailed description of the child.\
 Date when the child was lost.
 A clear photo of the child.
 
 Submit the details.
 
-##Submiting Details of a Found Child
+## Submitting Details of a Found Child
 
 Click on the "Found a child ?" button.
-Fill out the provided form with the following information:
 
-Child's name.
-Child's age.
-Contact details.
-A detailed description of the child.
-Date when you last saw the child.
+Fill out the provided form with the following information:
+Child's name.\
+Child's age.\
+Contact details.\
+A detailed description of the child.\
+Date when you last saw the child.\
 A clear photo of the child.
 
 Submit the details.
