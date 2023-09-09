@@ -1,7 +1,10 @@
 // ignore_for_file: file_names
 
+import 'package:child_finder/screens/delete_screen.dart';
 import 'package:child_finder/themes/lighttheme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 Widget buildImagePopupDialog(BuildContext context, index, lostChildren) {
   return AlertDialog(
@@ -123,6 +126,54 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
       ],
     ),
     actions: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+        child: OutlinedButton(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStatePropertyAll(lighttheme.colorScheme.background)),
+          onPressed: () async {
+            // String verificationid = '';
+            // await FirebaseAuth.instance.verifyPhoneNumber(
+            //   phoneNumber: '+91 ${lostChildren[index].parentContact}',
+            //   verificationCompleted: (PhoneAuthCredential credential) {},
+            //   verificationFailed: (FirebaseAuthException e) {},
+            //   codeSent: (String verificationId, int? resendToken) {
+            //     verificationid = verificationId;
+            //     ScaffoldMessenger.of(context).clearSnackBars();
+            //     ScaffoldMessenger.of(context).showSnackBar(
+            //       const SnackBar(
+            //         content: Text(
+            //           'OTP has been sent',
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   codeAutoRetrievalTimeout: (String verificationId) {},
+            // );
+            // if (!context.mounted) return;
+            final isExit = await Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                duration: const Duration(milliseconds: 250),
+                reverseDuration: const Duration(milliseconds: 250),
+                child: DeleteScreen(
+                  childToDelete: lostChildren[index],
+                  // verificationId: verificationid,
+                ),
+              ),
+            );
+            if (isExit && context.mounted) {
+              Navigator.of(context).pop();
+            }
+          },
+          child: Text(
+            'Delete',
+            style: TextStyle(color: lighttheme.appBarTheme.backgroundColor),
+          ),
+        ),
+      ),
       Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
         child: OutlinedButton(

@@ -6,6 +6,7 @@ class LostChildren {
   final String description;
   final String image;
   final String lostdate;
+  final String uid;
 
   const LostChildren({
     required this.name,
@@ -15,6 +16,7 @@ class LostChildren {
     required this.description,
     required this.image,
     required this.lostdate,
+    required this.uid,
   });
 
   static LostChildren fromJson(Map<String, dynamic> json) => LostChildren(
@@ -24,5 +26,7 @@ class LostChildren {
       parentContact: json['parentsContact'],
       description: json['lostChildDescription'],
       image: json['imgUrl'],
-      lostdate: json['lostDate']);
+      lostdate: json['lostDate'],
+      uid: json['uid'],
+      );
 }

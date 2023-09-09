@@ -69,7 +69,9 @@ class _PostComplaintState extends State<PostComplaint> {
     required String parentname,
     required String lostDate,
   }) async {
-    final lostChild = FirebaseFirestore.instance.collection('lostChild').doc();
+    final uniqueId = uuid.v4();
+    final lostChild =
+        FirebaseFirestore.instance.collection('lostChild').doc(uniqueId);
 
     final json = {
       'childName': name,
@@ -79,6 +81,7 @@ class _PostComplaintState extends State<PostComplaint> {
       'imgUrl': imgUrl,
       'parentName': parentname,
       'lostDate': lostDate,
+      'uid': uniqueId,
     };
     await lostChild.set(json);
   }
@@ -95,7 +98,7 @@ class _PostComplaintState extends State<PostComplaint> {
       );
       return;
     }
-    if(_lostdate == 'Please Select Date'){
+    if (_lostdate == 'Please Select Date') {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

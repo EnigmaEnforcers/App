@@ -1,3 +1,4 @@
+import 'package:child_finder/screens/delete_screen.dart';
 import 'package:child_finder/screens/homepage.dart';
 import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/themes/lighttheme.dart';
@@ -25,9 +26,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: showHome ? const HomePage() : const OnboardScreen(),
+      home: showHome?const HomePage():const OnboardScreen(),
     );
   }
 }
