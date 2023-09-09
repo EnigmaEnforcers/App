@@ -22,13 +22,8 @@ class _HomePageButtonState extends State<HomePageButton> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () async {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(child: CircularProgressIndicator());
-              });
-          await Navigator.push(
+        onTap: ()  {
+           Navigator.push(
             context,
             PageTransition(
                 type: PageTransitionType.fade,                
@@ -36,8 +31,6 @@ class _HomePageButtonState extends State<HomePageButton> {
                 reverseDuration: const Duration(milliseconds: 250),
                  child: widget.screen),
           );
-          if (!mounted) return;
-          Navigator.of(context).pop();
         },
         child: Container(
           height: 100,
