@@ -4,8 +4,10 @@ Welcome to Find My Kid, an app dedicated to helping users find their lost childr
 
 ## #HelpFindOurChildren
 
-Onboard Screen:\
-<img src="https://github.com/EnigmaEnforcers/App-Screen/blob/main/onboard.gif" alt="onboard" width="300" height="600">
+<p>
+  <img src="https://github.com/EnigmaEnforcers/App-Screen/blob/main/onboard.gif" alt="onboard" width="300" height="600">
+  <img src="https://github.com/EnigmaEnforcers/App-Screen/blob/main/Post_complaint.gif" alt="onboard" width="300" height="600">
+</p>
 
 # Features
 
