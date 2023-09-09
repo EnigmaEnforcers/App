@@ -11,25 +11,24 @@ Welcome to Find My Kid, an app dedicated to helping users find their lost childr
 
 # Features
 
-Report a Lost Child: Users can easily report a lost child by providing essential details, including the child's name, photo, description, and contact information.
+- Report a Lost Child: Users can easily report a lost child by providing essential details, including the child's name, photo, description, and contact information.
 
-Share Details of a Found Child: Individuals who have found a lost child can post relevant information, such as the child's name (if known), a photo, additional details, and contact information.
+- Share Details of a Found Child: Individuals who have found a lost child can post relevant information, such as the child's name (if known), a photo, additional details, and contact information.
 
-Facial Recognition: Child Finder employs a facial recognition model to compare photos of lost children with those of found children. When a match is detected, relevant parties are promptly notified.
+- Facial Recognition: Child Finder employs a facial recognition model to compare photos of lost children with those of found children. When a match is detected, relevant parties are promptly notified.
 
 ## Reporting a Lost Child
 
 Click on the "Lost your child ?" button.
 
 Fill out the provided form with the following information:
-Child's name.\
-Child's age.\
-Parents name.\
-Contact details.\
-A detailed description of the child.\
-Date when the child was lost.
-A clear photo of the child.
-
+- Child's name.
+- Child's age.
+- Parents name.
+- Contact details.
+- A detailed description of the child.
+- Date when the child was lost.
+- A clear photo of the child.
 Submit the details.
 
 ## Submitting Details of a Found Child
@@ -37,11 +36,10 @@ Submit the details.
 Click on the "Found a child ?" button.
 
 Fill out the provided form with the following information:
-Child's name.\
-Child's age.\
-Contact details.\
-A detailed description of the child.\
-Date when you last saw the child.\
-A clear photo of the child.
-
+- Child's name.
+- Child's age.
+- Contact details.
+- A detailed description of the child.
+- Date when you last saw the child.
+- A clear photo of the child.
 Submit the details.
