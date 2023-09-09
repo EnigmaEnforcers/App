@@ -7,7 +7,7 @@ import 'package:child_finder/screens/macthedchild.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:child_finder/widget/infowidget.dart';
 
@@ -23,32 +23,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Future<bool> showExitPopup() async {
       return await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              backgroundColor: lighttheme.colorScheme.background,
-              title: const Text('Exit the app'),
-              content: const Text('Do you want to exit Find My Child ?'),
-              actions: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        lighttheme.colorScheme.secondary),
-                  ),
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('No'),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        lighttheme.colorScheme.secondary),
-                  ),
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text('Yes'),
-                ),
-              ],
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: lighttheme.colorScheme.background,
+          title: const Text('Exit the app'),
+          content: const Text('Do you want to exit Find My Child ?'),
+          actions: [
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary),
+              ),
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
             ),
-          ) ??
-          false;
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary),
+              ),
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        ),
+      );
     }
 
     return WillPopScope(
@@ -111,18 +112,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                            lighttheme.colorScheme.secondary),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)))),
+                      backgroundColor: MaterialStatePropertyAll(
+                          lighttheme.colorScheme.secondary),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
                     onPressed: () async {
                       final Uri url = Uri(scheme: 'tel', path: "100");
                       if (await canLaunchUrl(url)) {
                         await launchUrl(url);
                       } else {
                         const SnackBar(
-                            content: Text(
-                                "Cannot call the nearest police station !"));
+                          content:
+                              Text("Cannot call the nearest police station !"),
+                        );
                       }
                     },
                     child: const Row(
@@ -133,9 +139,10 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.amber,
                         ),
                         SizedBox(width: 7),
-                        Text("Call Police Station",
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.amber)),
+                        Text(
+                          "Call Police Station",
+                          style: TextStyle(fontSize: 20, color: Colors.amber),
+                        ),
                       ],
                     ),
                   ),

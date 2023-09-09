@@ -23,11 +23,6 @@ class _HomePageButtonState extends State<HomePageButton> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(child: CircularProgressIndicator());
-              });
           await Navigator.push(
             context,
             PageTransition(
