@@ -94,21 +94,21 @@ class _OnboardScreenState extends State<OnboardScreen> {
           },
           children: [
             buildPage(
-              color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.tertiary,
               urlImage: 'assets/onboard1.png',
               title: 'Post a Complaint',
               subtitle: "Together, we can bring them home.\nPost your child's details in the\n'Lost Your Child ?' section.",
               hashtag: '#HelpFindOurChildren'
             ),
             buildPage(
-              color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.tertiary,
               urlImage: 'assets/onboard2.png',
               title: "Reunite, Found a Lost Child !",
               subtitle: "Let's bring them back to safety together.",
               hashtag: '#HelpFindOurChildren',
             ),
             buildPage(
-              color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.tertiary,
               urlImage: 'assets/onboard3.png',
               title: 'All Reunited Children',
               subtitle: 'An extensive list of all reunited children till date.',
@@ -122,7 +122,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
               style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                   minimumSize: const Size.fromHeight(70),
-                  backgroundColor: lighttheme.colorScheme.primary),
+                  backgroundColor: Colors.white),
               onPressed: () async {
                 final prefs = await SharedPreferences.getInstance();
                 prefs.setBool('showHome', true);
@@ -137,11 +137,11 @@ class _OnboardScreenState extends State<OnboardScreen> {
               child: Text(
                 "Get Started",
                 style: TextStyle(
-                    fontSize: 24, color: lighttheme.colorScheme.background),
+                    fontSize: 24, color: lighttheme.appBarTheme.backgroundColor),
               ),
             )
           : Container(
-              color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.tertiary,
               padding: const EdgeInsets.symmetric(horizontal: 10),
               height: 70,
               child: Row(
@@ -165,7 +165,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         dotWidth: 10,
                         spacing: 14,
                         dotColor: lighttheme.colorScheme.background,
-                        activeDotColor: Colors.amber,
+                        activeDotColor: lighttheme.colorScheme.primary,
                       ),
                       onDotClicked: (index) => controller.animateToPage(index,
                           duration: const Duration(milliseconds: 500),

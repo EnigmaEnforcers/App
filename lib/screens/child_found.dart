@@ -42,7 +42,7 @@ class _ChildFoundState extends State<ChildFound> {
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: lighttheme.colorScheme.secondary,
+                foregroundColor: Colors.black,
               ),
             ),
           ),
@@ -155,155 +155,215 @@ class _ChildFoundState extends State<ChildFound> {
         backgroundColor: lighttheme.appBarTheme.backgroundColor,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Child's Name",
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a valid name';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _childName = v!;
-                      },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Child's age",
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null ||
-                            value.trim().isEmpty ||
-                            (int.tryParse(value) ?? 26) > 25 ||
-                            (int.tryParse(value) ?? 0) <= 0) {
-                          return 'Please enter a valid age';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _childAge = v!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Contact",
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.trim().length != 10) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _contact = v!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Description",
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a relevant description';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _description = v!;
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(_lostdate),
-                      IconButton(
-                        onPressed: () {
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Child's Name",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a valid name';
                           }
-                          _presentdatePicker();
+                          return null;
                         },
-                        icon: const Icon(
-                          Icons.calendar_month,
+                        onSaved: (v) {
+                          _childName = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Child's age",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null ||
+                              value.trim().isEmpty ||
+                              (int.tryParse(value) ?? 26) > 25 ||
+                              (int.tryParse(value) ?? 0) <= 0) {
+                            return 'Please enter a valid age';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _childAge = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Contact",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.trim().length != 10) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _contact = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Description",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a relevant description';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _description = v!;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _lostdate,
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            if (!currentFocus.hasPrimaryFocus) {
+                              currentFocus.unfocus();
+                            }
+                            _presentdatePicker();
+                          },
+                          icon: const Icon(
+                            Icons.calendar_month,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      shape: MaterialStatePropertyAll(
+                        ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                    ],
+                      backgroundColor: _selectedImage == null
+                          ? MaterialStatePropertyAll(
+                              lighttheme.colorScheme.tertiary)
+                          : const MaterialStatePropertyAll(
+                              Color(0xff38CF59),
+                            ),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (ctx) {
+                        return UploadImage(
+                          onPickedImage: (image) {
+                            _selectedImage = image;
+                            setState(() {});
+                          },
+                        );
+                      }));
+                    },
+                    label: _selectedImage == null
+                        ? Text(
+                            "Upload Image",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .color),
+                          )
+                        : Text(
+                            "Image Uploaded",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .backgroundColor),
+                          ),
+                    icon: _selectedImage == null
+                        ? const Icon(Icons.image)
+                        : const Icon(Icons.check),
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 18, 0, 10),
-              child: ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
                 ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-                    return UploadImage(
-                      onPickedImage: (image) {
-                        _selectedImage = image;
-                        setState(() {});
-                      },
-                    );
-                  }));
-                },
-                label: _selectedImage == null
-                    ? const Text("Upload Image")
-                    : const Text("Image Uploaded"),
-                icon: _selectedImage == null
-                    ? const Icon(Icons.image)
-                    : const Icon(Icons.check),
               ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.primary),
+              SizedBox(
+                height: 40,
+                width: 180,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStatePropertyAll(
+                      ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: MaterialStatePropertyAll(
+                        lighttheme.colorScheme.tertiary),
+                  ),
+                  onPressed: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    _submitForm();
+                  },
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               ),
-              onPressed: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-                _submitForm();
-              },
-              child: const Text("Submit"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

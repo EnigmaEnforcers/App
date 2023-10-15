@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'package:child_finder/screens/map.dart';
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,6 +29,8 @@ class _PostComplaintState extends State<PostComplaint> {
   var _contact = '';
   var _description = '';
   var _lostdate = 'Please Select Date';
+  var xCor;
+  var yCor;
 
   void _presentdatePicker() async {
     final now = DateTime.now();
@@ -37,13 +40,13 @@ class _PostComplaintState extends State<PostComplaint> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: lighttheme.colorScheme.primary,
+              primary: lighttheme.colorScheme.tertiary,
               onPrimary: lighttheme.colorScheme.background,
               onSurface: lighttheme.appBarTheme.backgroundColor!,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor: lighttheme.colorScheme.secondary,
+                foregroundColor: Colors.black,
               ),
             ),
           ),
@@ -123,13 +126,14 @@ class _PostComplaintState extends State<PostComplaint> {
       final imgURL = await storageRef.getDownloadURL();
 
       uploadLostChild(
-          name: _childName,
-          age: _childAge,
-          contact: _contact,
-          description: _description,
-          imgUrl: imgURL,
-          parentname: _parentName,
-          lostDate: _lostdate);
+        name: _childName,
+        age: _childAge,
+        contact: _contact,
+        description: _description,
+        imgUrl: imgURL,
+        parentname: _parentName,
+        lostDate: _lostdate,
+      );
 
       Navigator.of(context).pop();
 
@@ -162,178 +166,285 @@ class _PostComplaintState extends State<PostComplaint> {
         backgroundColor: lighttheme.appBarTheme.backgroundColor,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Child's Name",
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a valid name';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _childName = v!;
-                      },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Child's age",
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null ||
-                            value.trim().isEmpty ||
-                            (int.tryParse(value) ?? 26) > 25 ||
-                            (int.tryParse(value) ?? 0) <= 0) {
-                          return 'Please enter a valid age';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _childAge = v!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Parent's Name",
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a valid name';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _parentName = v!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Contact",
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.trim().length != 10) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _contact = v!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        contentPadding: EdgeInsets.all(12),
-                        labelText: "Description",
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a relevant description';
-                        }
-                        return null;
-                      },
-                      onSaved: (v) {
-                        _description = v!;
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(_lostdate),
-                      IconButton(
-                        onPressed: () {
-                          FocusScopeNode currentFocus = FocusScope.of(context);
-                          if (!currentFocus.hasPrimaryFocus) {
-                            currentFocus.unfocus();
-                          }
-                          _presentdatePicker();
-                        },
-                        icon: const Icon(
-                          Icons.calendar_month,
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Child's Name",
                         ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a valid name';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _childName = v!;
+                        },
                       ),
-                    ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Child's age",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null ||
+                              value.trim().isEmpty ||
+                              (int.tryParse(value) ?? 26) > 25 ||
+                              (int.tryParse(value) ?? 0) <= 0) {
+                            return 'Please enter a valid age';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _childAge = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Parent's Name",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a valid name';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _parentName = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Contact",
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.trim().length != 10) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _contact = v!;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(12),
+                          labelText: "Description",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter a relevant description';
+                          }
+                          return null;
+                        },
+                        onSaved: (v) {
+                          _description = v!;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _lostdate,
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            FocusScopeNode currentFocus =
+                                FocusScope.of(context);
+                            if (!currentFocus.hasPrimaryFocus) {
+                              currentFocus.unfocus();
+                            }
+                            _presentdatePicker();
+                          },
+                          icon: const Icon(
+                            Icons.calendar_month,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: 40,
+                    width: 160,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        backgroundColor: _selectedImage == null
+                            ? MaterialStatePropertyAll(
+                                lighttheme.colorScheme.tertiary)
+                            : const MaterialStatePropertyAll(
+                                Color(0xff38CF59),
+                              ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return UploadImage(
+                                onPickedImage: (image) {
+                                  _selectedImage = image;
+                                  setState(() {});
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      label: _selectedImage == null
+                          ? Text(
+                              "Upload Image",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color),
+                            )
+                          : Text(
+                              textAlign: TextAlign.center,
+                              "Image Uploaded",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .backgroundColor),
+                            ),
+                      icon: _selectedImage == null
+                          ? const Icon(Icons.image)
+                          : const Icon(Icons.check),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: 160,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        backgroundColor: MaterialStatePropertyAll(
+                            lighttheme.colorScheme.tertiary),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return LiveLocationPage(currentCord: ((x, y) {
+                                xCor = x;
+                                yCor = y;
+                                setState(() {});
+                              }));
+                            },
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Last Seen at ?",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium!.color),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 18, 0, 10),
-              child: ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(lighttheme.colorScheme.primary),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return UploadImage(
-                          onPickedImage: (image) {
-                            _selectedImage = image;
-                            setState(() {});
-                          },
-                        );
-                      },
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 9),
+                child: SizedBox(
+                  height: 40,
+                  width: 180,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStatePropertyAll(
+                        ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: MaterialStatePropertyAll(
+                          lighttheme.colorScheme.tertiary),
                     ),
-                  );
-                },
-                label: _selectedImage == null
-                    ? const Text("Upload Image")
-                    : const Text("Image Uploaded"),
-                icon: _selectedImage == null
-                    ? const Icon(Icons.image)
-                    : const Icon(Icons.check),
+                    onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      _submitForm();
+                    },
+                    child: Text(
+                      "Submit",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).textTheme.bodyMedium!.color),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.primary),
-              ),
-              onPressed: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-                _submitForm();
-              },
-              child: const Text("Submit"),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

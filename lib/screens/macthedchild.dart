@@ -76,7 +76,7 @@ class _MatchedChildState extends State<MatchedChild> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: lighttheme.colorScheme.secondary,
+                            color: lighttheme.colorScheme.primary,
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -90,7 +90,8 @@ class _MatchedChildState extends State<MatchedChild> {
                                 if (loadingProgress == null) return child;
                                 return Center(
                                   child: CircularProgressIndicator(
-                                    color: lighttheme.dialogBackgroundColor,
+                                    color:
+                                        Theme.of(context).colorScheme.background,
                                   ),
                                 );
                               },

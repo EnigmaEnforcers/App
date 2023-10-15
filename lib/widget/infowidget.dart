@@ -55,7 +55,8 @@ Widget buildPopupDialog(BuildContext context) {
           ElevatedButton(
             style: ButtonStyle(
                 backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary)),
+                    MaterialStatePropertyAll(
+                    lighttheme.appBarTheme.backgroundColor)),
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
               prefs.setBool('showHome', false);
@@ -75,7 +76,7 @@ Widget buildPopupDialog(BuildContext context) {
           OutlinedButton(
             style: ButtonStyle(
                 backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary)),
+                    MaterialStatePropertyAll(lighttheme.appBarTheme.backgroundColor)),
             onPressed: () {
               Navigator.of(context).pop();
             },

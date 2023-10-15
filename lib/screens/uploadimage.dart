@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
-//TODO ----> SUBMIT BUTTON
-//TODO ----> LOADING
-
 class UploadImage extends StatefulWidget {
   const UploadImage({super.key, required this.onPickedImage});
   final void Function(File pickedImage) onPickedImage;
@@ -40,8 +37,8 @@ class _UploadImageState extends State<UploadImage> {
             ),
             MaterialButton(
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              color: lighttheme.colorScheme.primary,
+                  borderRadius: BorderRadius.all(Radius.circular(5),),),
+              color: lighttheme.colorScheme.tertiary,
               child: const Text(
                 "Pick Image from Gallery",
                 style: TextStyle(
@@ -59,7 +56,7 @@ class _UploadImageState extends State<UploadImage> {
                   Radius.circular(5),
                 ),
               ),
-              color: lighttheme.colorScheme.primary,
+              color: lighttheme.colorScheme.tertiary,
               child: const Text(
                 "Pick Image from Camera",
                 style: TextStyle(
@@ -78,8 +75,8 @@ class _UploadImageState extends State<UploadImage> {
               margin: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(
-                  width: 2,
-                  color: lighttheme.colorScheme.primary,
+                  width: 1.5,
+                  color: lighttheme.colorScheme.tertiary,
                 ),
               ),
               height: 250,
@@ -89,9 +86,10 @@ class _UploadImageState extends State<UploadImage> {
                   ? Image.file(_selectedImage!, fit: BoxFit.contain
                       // width: 800,
                       )
-                  : const Text(
+                  : Text(
                       "Please Select an Image",
                       style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                         fontSize: 15,
                       ),
                     ),
@@ -112,11 +110,19 @@ class _UploadImageState extends State<UploadImage> {
                 Navigator.of(context).pop();
               },
               style: ButtonStyle(
+                shape: MaterialStatePropertyAll(
+                  ContinuousRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
                 backgroundColor: MaterialStatePropertyAll(
-                  lighttheme.colorScheme.primary,
+                  lighttheme.colorScheme.tertiary,
                 ),
               ),
-              child: const Text('Confirm'),
+              child: const Text(
+                'Confirm',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           ],
         ),

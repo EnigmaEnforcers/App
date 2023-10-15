@@ -5,10 +5,10 @@ import 'package:widget_zoom/widget_zoom.dart';
 Widget buildMatchedPopupDialog(BuildContext context, index, matchedChildren) {
   return AlertDialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    backgroundColor: lighttheme.colorScheme.secondary,
+    backgroundColor: lighttheme.colorScheme.background,
     title: Text(
       'Child Details :',
-      style: TextStyle(color: lighttheme.colorScheme.background),
+      style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
     ),
     content: Column(
       mainAxisSize: MainAxisSize.min,
@@ -33,42 +33,42 @@ Widget buildMatchedPopupDialog(BuildContext context, index, matchedChildren) {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Child name: ${matchedChildren[index].name}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Lost Date: ${matchedChildren[index].lostdate}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Child age: ${matchedChildren[index].age}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Parent name: ${matchedChildren[index].parentName}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Parent contact: ${matchedChildren[index].parentsContact}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Description: ${matchedChildren[index].description}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: Theme.of(context).textTheme.bodyLarge!.color),
           ),
         ),
       ],

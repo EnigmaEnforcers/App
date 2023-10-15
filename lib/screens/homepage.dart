@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'package:child_finder/model/homepagebutton.dart';
-import 'package:child_finder/screens/allchildren.dart';
+import 'package:child_finder/screens/allchildrenlost.dart';
 import 'package:child_finder/screens/child_found.dart';
 import 'package:child_finder/screens/macthedchild.dart';
 import 'package:child_finder/screens/postcomplaint.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:marquee/marquee.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:child_finder/widget/infowidget.dart';
 
@@ -19,6 +20,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List screens = [
+    const PostComplaint(),
+    const ChildFound(),
+    const AllChildren(),
+    const MatchedChild()
+  ];
+  List textRequired = [
+    "Lost your Child ?",
+    "Found a Child ?",
+    "All children Lost",
+    "All children Found"
+  ];
+  List iconsReq = [
+    Icons.add_box_outlined,
+    Icons.add_box,
+    Icons.list,
+    Icons.list
+  ];
+  List colors = [
+    lighttheme.colorScheme.primary,
+    lighttheme.colorScheme.secondary,
+    lighttheme.colorScheme.secondary,
+    lighttheme.colorScheme.primary,
+  ];
   @override
   Widget build(BuildContext context) {
     Future<bool> showExitPopup() async {
@@ -32,7 +57,8 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary),
+                    MaterialStatePropertyAll(
+                    lighttheme.appBarTheme.backgroundColor),
               ),
               onPressed: () => Navigator.of(context).pop(false),
               child: const Text('No'),
@@ -40,7 +66,8 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStatePropertyAll(lighttheme.colorScheme.secondary),
+                    MaterialStatePropertyAll(
+                    lighttheme.appBarTheme.backgroundColor),
               ),
               onPressed: () {
                 SystemNavigator.pop();
@@ -59,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           backgroundColor: lighttheme.appBarTheme.backgroundColor,
           centerTitle: true,
-          title: const Text('Find My Child'),
+          title: const Text('Find My Kid'),
           leading: IconButton(
               onPressed: () {
                 showDialog(
@@ -70,35 +97,74 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.help)),
           actions: [
             IconButton(
-                onPressed: () async {
-                  showExitPopup();
-                },
-                icon: const Icon(Icons.logout))
+              onPressed: () async {
+                showExitPopup();
+              },
+              icon: const Icon(Icons.logout),
+            ),
           ],
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomePageButton(
-                buttonText: "Lost your child ?",
-                screen: PostComplaint(),
-                icon: Icons.add_box_outlined,
+              const SizedBox(
+                height: 40,
               ),
-              const HomePageButton(
-                buttonText: "Found a child ?",
-                screen: ChildFound(),
-                icon: Icons.add_box,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 8, 20),
+                child: Text(
+                  'Hello! Parents ...',
+                  style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                ),
               ),
-              const HomePageButton(
-                buttonText: "List of all children lost",
-                screen: AllChildren(),
-                icon: Icons.list,
+              SizedBox(
+                height: 300,
+                width: 300,
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisExtent: 150,
+                            childAspectRatio: 1,
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5,
+                            crossAxisCount: 2),
+                    itemCount: 4,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: HomePageButton(
+                          color: colors[index],
+                          buttonText: textRequired[index],
+                          icon: iconsReq[index],
+                          screen: screens[index],
+                        ),
+                      );
+                    }),
               ),
-              const HomePageButton(
-                buttonText: "List of all children found",
-                screen: MatchedChild(),
-                icon: Icons.list,
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                height: 100,
+                width: 300,
+                child: Marquee(
+                  text: '! FIND MY KID !',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                  scrollAxis: Axis.horizontal,
+                  textDirection: TextDirection.ltr,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  blankSpace: 30.0,
+                  velocity: 80.0,
+                  accelerationCurve: Curves.bounceInOut,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -116,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                           lighttheme.colorScheme.secondary),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
+                          side: const BorderSide(color: Colors.brown),
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
@@ -131,17 +198,20 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                     },
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.local_police_outlined,
-                          color: Colors.amber,
+                          color: Colors.black,
                         ),
-                        SizedBox(width: 7),
+                        const SizedBox(width: 7),
                         Text(
-                          "Call Police Station",
-                          style: TextStyle(fontSize: 20, color: Colors.amber),
+                          "Call Nearby Police Station",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color),
                         ),
                       ],
                     ),

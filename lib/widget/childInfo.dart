@@ -2,7 +2,6 @@
 
 import 'package:child_finder/screens/delete_screen.dart';
 import 'package:child_finder/themes/lighttheme.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:widget_zoom/widget_zoom.dart';
@@ -11,10 +10,10 @@ import 'package:widget_zoom/widget_zoom.dart';
 Widget buildPopupDialog(BuildContext context, index, lostChildren) {
   return AlertDialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    backgroundColor: lighttheme.colorScheme.secondary,
+    backgroundColor: lighttheme.colorScheme.background,
     title: Text(
       'Child Details :',
-      style: TextStyle(color: lighttheme.colorScheme.background),
+      style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
     ),
     content: Column(
       mainAxisSize: MainAxisSize.min,
@@ -39,42 +38,42 @@ Widget buildPopupDialog(BuildContext context, index, lostChildren) {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Child name: ${lostChildren[index].name}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Lost Date: ${lostChildren[index].lostdate}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Child age: ${lostChildren[index].age}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Parent name: ${lostChildren[index].parentName}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Parent contact: ${lostChildren[index].parentContact}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Description: ${lostChildren[index].description}",
-            style: TextStyle(color: lighttheme.colorScheme.background),
+            style: TextStyle(color: lighttheme.textTheme.bodyLarge!.color),
           ),
         ),
       ],
