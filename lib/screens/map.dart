@@ -7,8 +7,8 @@ import 'package:location/location.dart';
 class LiveLocationPage extends StatefulWidget {
   static const String route = '/live_location';
 
-  const LiveLocationPage({super.key, required this.currentCord});
-  final void Function(double x,double y) currentCord;
+  const LiveLocationPage({super.key});
+  // final void Function(double x, double y) currentCord;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -63,22 +63,23 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
         if (_permission) {
           location = await _locationService.getLocation();
           _currentLocation = location;
-          _locationService.onLocationChanged
-              .listen((LocationData result) async {
-            if (mounted) {
-              setState(() {
-                _currentLocation = result;
+          _locationService.onLocationChanged.listen(
+            (LocationData result) async {
+              if (mounted) {
+                setState(() {
+                  _currentLocation = result;
 
-                // If Live Update is enabled, move map center
-                if (_liveUpdate) {
-                  _mapController.move(
-                      LatLng(_currentLocation!.latitude!,
-                          _currentLocation!.longitude!),
-                      _mapController.camera.zoom);
-                }
-              });
-            }
-          });
+                  // If Live Update is enabled, move map center
+                  if (_liveUpdate) {
+                    _mapController.move(
+                        LatLng(_currentLocation!.latitude!,
+                            _currentLocation!.longitude!),
+                        _mapController.camera.zoom);
+                  }
+                });
+              }
+            },
+          );
         }
       } else {
         serviceRequestResult = await _locationService.requestService();

@@ -49,9 +49,9 @@ dependencies:
   widget_zoom: ^0.0.1
   firebase_auth: ^4.9.0
   marquee: ^2.2.3
-  flutter_map: 
-  latlong2: 
-  location: 
+  flutter_map:
+  latlong2:
+  location:
 
 dev_dependencies:
   flutter_test:
@@ -89,7 +89,7 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

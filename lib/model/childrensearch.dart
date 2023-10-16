@@ -9,20 +9,22 @@ class ChildrenSearchDelegate extends SearchDelegate {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () {
-            query = '';
-          },
-          icon: const Icon(Icons.clear))
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      ),
     ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          close(context, null);
-        },
-        icon: const Icon(Icons.arrow_back_ios_rounded));
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back_ios_rounded),
+    );
   }
 
   @override
@@ -61,11 +63,19 @@ class ChildrenSearchDelegate extends SearchDelegate {
         return InkWell(
           onTap: () async {
             FocusManager.instance.primaryFocus?.unfocus();
-            await Future.delayed(const Duration(milliseconds: 150),);
-            showDialog(
+            await Future.delayed(
+              const Duration(milliseconds: 150),
+            );
+            if (context.mounted) {
+              showDialog(
                 context: context,
-                builder: (context) =>
-                    buildPopupDialog(context, index, matchQuery));
+                builder: (context) => buildPopupDialog(
+                  context,
+                  index,
+                  matchQuery,
+                ),
+              );
+            }
           },
           child: ListTile(
             title: Text(result.name),

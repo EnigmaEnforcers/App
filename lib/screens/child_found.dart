@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:io';
+import 'package:child_finder/screens/map.dart';
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,6 +28,8 @@ class _ChildFoundState extends State<ChildFound> {
   var _contact = '';
   var _description = '';
   var _lostdate = 'Please Select Date';
+  var xCor;
+  var yCor;
 
   void _presentdatePicker() async {
     final now = DateTime.now();
@@ -284,60 +287,100 @@ class _ChildFoundState extends State<ChildFound> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
-                child: SizedBox(
-                  height: 40,
-                  width: 180,
-                  child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(
-                        ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      backgroundColor: _selectedImage == null
-                          ? MaterialStatePropertyAll(
-                              lighttheme.colorScheme.tertiary)
-                          : const MaterialStatePropertyAll(
-                              Color(0xff38CF59),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 18, 0, 18),
+                    child: SizedBox(
+                      height: 40,
+                      width: 150,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                          shape: MaterialStatePropertyAll(
+                            ContinuousRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (ctx) {
-                        return UploadImage(
-                          onPickedImage: (image) {
-                            _selectedImage = image;
-                            setState(() {});
-                          },
-                        );
-                      }));
-                    },
-                    label: _selectedImage == null
-                        ? Text(
-                            "Upload Image",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color),
-                          )
-                        : Text(
-                            "Image Uploaded",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .backgroundColor),
                           ),
-                    icon: _selectedImage == null
-                        ? const Icon(Icons.image)
-                        : const Icon(Icons.check),
+                          backgroundColor: _selectedImage == null
+                              ? MaterialStatePropertyAll(
+                                  lighttheme.colorScheme.tertiary)
+                              : const MaterialStatePropertyAll(
+                                  Color(0xff38CF59),
+                                ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (ctx) {
+                            return UploadImage(
+                              onPickedImage: (image) {
+                                _selectedImage = image;
+                                setState(() {});
+                              },
+                            );
+                          }));
+                        },
+                        label: _selectedImage == null
+                            ? Text(
+                                "Upload Image",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .color,
+                                ),
+                              )
+                            : Text(
+                                "Image Uploaded",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .backgroundColor),
+                              ),
+                        icon: _selectedImage == null
+                            ? const Icon(Icons.image)
+                            : const Icon(Icons.check),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: 150,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        backgroundColor: MaterialStatePropertyAll(
+                            lighttheme.colorScheme.tertiary),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return const LiveLocationPage();
+                            },
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Last Seen at ?",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium!.color),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 40,
