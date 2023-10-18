@@ -1,7 +1,4 @@
-import 'package:child_finder/screens/delete_screen.dart';
 import 'package:child_finder/screens/homepage.dart';
-import 'package:child_finder/screens/map.dart';
-import 'package:child_finder/screens/onboardscreen.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +27,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lighttheme,
-      home: const LiveLocationPage(),
+      home: const HomePage(),
     );
   }
 }

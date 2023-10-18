@@ -39,7 +39,7 @@ class _ChildFoundState extends State<ChildFound> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: lighttheme.colorScheme.primary,
+              primary: lighttheme.colorScheme.tertiary,
               onPrimary: lighttheme.colorScheme.background,
               onSurface: lighttheme.appBarTheme.backgroundColor!,
             ),
@@ -144,6 +144,7 @@ class _ChildFoundState extends State<ChildFound> {
         ),
       );
     }
+    _formKey.currentState?.reset();
   }
 
   @override
@@ -176,11 +177,13 @@ class _ChildFoundState extends State<ChildFound> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Child's Name",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Child's Name",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a valid name';
@@ -195,11 +198,13 @@ class _ChildFoundState extends State<ChildFound> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Child's age",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Child's age",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null ||
@@ -218,11 +223,13 @@ class _ChildFoundState extends State<ChildFound> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Contact",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Contact",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.trim().length != 10) {
@@ -238,11 +245,13 @@ class _ChildFoundState extends State<ChildFound> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Description",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Description",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a relevant description';

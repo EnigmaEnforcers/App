@@ -177,9 +177,9 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
             const SizedBox(width: 145),
             FloatingActionButton(
               onPressed: () {
+                
                 setState(() {
                   _liveUpdate = !_liveUpdate;
-
                   if (_liveUpdate) {
                     interActiveFlags = InteractiveFlag.rotate |
                         InteractiveFlag.pinchZoom |

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:child_finder/screens/map.dart';
 import 'package:child_finder/screens/uploadimage.dart';
 import 'package:child_finder/themes/lighttheme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -107,6 +106,7 @@ class _PostComplaintState extends State<PostComplaint> {
       return;
     }
     _formKey.currentState!.save();
+
     showDialog(
         context: context,
         builder: (context) {
@@ -157,6 +157,7 @@ class _PostComplaintState extends State<PostComplaint> {
         ),
       );
     }
+    _formKey.currentState?.reset();
   }
 
   @override
@@ -189,11 +190,12 @@ class _PostComplaintState extends State<PostComplaint> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Child's Name",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Child's Name",
+                            labelStyle: TextStyle(
+                                color: Theme.of(context).colorScheme.tertiary)),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a valid name';
@@ -208,11 +210,13 @@ class _PostComplaintState extends State<PostComplaint> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Child's age",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Child's age",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null ||
@@ -231,11 +235,13 @@ class _PostComplaintState extends State<PostComplaint> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Parent's Name",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Parent's Name",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a valid name';
@@ -250,11 +256,13 @@ class _PostComplaintState extends State<PostComplaint> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Contact",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Contact",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.trim().length != 10) {
@@ -270,11 +278,13 @@ class _PostComplaintState extends State<PostComplaint> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(12),
-                          labelText: "Description",
-                        ),
+                        decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.all(12),
+                            labelText: "Description",
+                            labelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            )),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a relevant description';
